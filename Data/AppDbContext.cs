@@ -26,6 +26,8 @@ namespace IEEE.Data
         public DbSet<Tasks> Tasks { get; set; }
         public DbSet<Tasks> Users_Tasks { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
 
 
 

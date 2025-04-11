@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\El-walid\\source\\Desktop\\learn\\Ieee2\\hr-system\\IEEE.csproj": {}
+    "E:\\projects\\Backend\\EvaluaionIEEE\\hr-system\\IEEE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\El-walid\\source\\Desktop\\learn\\Ieee2\\hr-system\\IEEE.csproj": {
+    "E:\\projects\\Backend\\EvaluaionIEEE\\hr-system\\IEEE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\El-walid\\source\\Desktop\\learn\\Ieee2\\hr-system\\IEEE.csproj",
+        "projectUniqueName": "E:\\projects\\Backend\\EvaluaionIEEE\\hr-system\\IEEE.csproj",
         "projectName": "IEEE",
-        "projectPath": "C:\\Users\\El-walid\\source\\Desktop\\learn\\Ieee2\\hr-system\\IEEE.csproj",
-        "packagesPath": "C:\\Users\\El-walid\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\El-walid\\source\\Desktop\\learn\\Ieee2\\hr-system\\obj\\",
+        "projectPath": "E:\\projects\\Backend\\EvaluaionIEEE\\hr-system\\IEEE.csproj",
+        "packagesPath": "C:\\Users\\EL-Masria\\.nuget\\packages\\",
+        "outputPath": "E:\\projects\\Backend\\EvaluaionIEEE\\hr-system\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\El-walid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\EL-Masria\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,35 +44,31 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.5.1, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[8.0.15, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[8.0.15, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[8.0.15, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[8.0.15, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -98,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

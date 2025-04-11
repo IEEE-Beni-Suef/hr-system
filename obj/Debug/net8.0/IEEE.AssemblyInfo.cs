@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IEEE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60673530e5675152c921df2560c3f04bd2868a6e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b407f2f87f3f208c5e6461be47326e295363c1d")]
 [assembly: System.Reflection.AssemblyProductAttribute("IEEE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IEEE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

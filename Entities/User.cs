@@ -1,6 +1,8 @@
-﻿namespace IEEE.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace IEEE.Entities
 {
-    public class User
+    public class User 
     {
         public int Id { get; set; }
         public string Name { get; set; }
