@@ -24,6 +24,8 @@ namespace IEEE.Entities
         
         public ICollection<Tasks>? HeadTasks { get; set; } = new List<Tasks>();
         public ICollection<Users_Tasks>? Users_Tasks { get; set; } = new List<Users_Tasks>();
+        public ICollection<meetings>? CreatorMeetings { get; set; } = new List<meetings>();
+        public ICollection<meetings>? Meetings { get; set; } = new List<meetings>();
 
 
 

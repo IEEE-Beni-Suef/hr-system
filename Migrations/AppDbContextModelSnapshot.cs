@@ -212,6 +212,7 @@ namespace IEEE.Migrations
                     b.ToTable("meetings");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -363,6 +364,21 @@ namespace IEEE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Role");
+=======
+            modelBuilder.Entity("Users_Meetings", b =>
+                {
+                    b.Property<int>("MeetingsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MeetingsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("Users_Meetings");
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
                 });
 
             modelBuilder.Entity("IEEE.Entities.Tasks", b =>
@@ -404,7 +420,7 @@ namespace IEEE.Migrations
                         .IsRequired();
 
                     b.HasOne("IEEE.Entities.User", "Creator")
-                        .WithMany()
+                        .WithMany("CreatorMeetings")
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -414,6 +430,7 @@ namespace IEEE.Migrations
                     b.Navigation("Creator");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
@@ -447,10 +464,19 @@ namespace IEEE.Migrations
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
+=======
+            modelBuilder.Entity("Users_Meetings", b =>
+                {
+                    b.HasOne("IEEE.Entities.meetings", null)
+                        .WithMany()
+                        .HasForeignKey("MeetingsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
                         .IsRequired();
 
                     b.HasOne("IEEE.Entities.User", null)
                         .WithMany()
+<<<<<<< HEAD
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -461,6 +487,9 @@ namespace IEEE.Migrations
                     b.HasOne("IEEE.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+=======
+                        .HasForeignKey("UsersId")
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -472,6 +501,8 @@ namespace IEEE.Migrations
 
             modelBuilder.Entity("IEEE.Entities.User", b =>
                 {
+                    b.Navigation("CreatorMeetings");
+
                     b.Navigation("HeadTasks");
 
                     b.Navigation("Users_Tasks");

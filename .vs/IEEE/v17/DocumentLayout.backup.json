@@ -1,8 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\projects\\Backend\\websiteieee\\hr-system\\",
+  "WorkspaceRootPath": "C:\\Users\\El-walid\\Desktop\\hr-system\\",
   "Documents": [
     {
+<<<<<<< HEAD
       "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|e:\\projects\\backend\\websiteieee\\hr-system\\migrations\\20250420193646_userendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:migrations\\20250420193646_userendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -37,6 +38,102 @@
     {
       "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|e:\\projects\\backend\\websiteieee\\hr-system\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\ieee.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:ieee.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\migrations\\20250419224256_usermeetings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:migrations\\20250419224256_usermeetings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\entities\\meetings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:entities\\meetings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\entities\\committee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:entities\\committee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\migrations\\20250419222057_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:migrations\\20250419222057_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\configurations\\meetingconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:configurations\\meetingconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419224047_dd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419224047_dd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\entities\\tasks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:entities\\tasks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419223920_kk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419223920_kk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221903_llast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419221903_llast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221811_lasst.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419221811_lasst.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221644_last.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419221644_last.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221607_lastt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419221607_lastt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221445_last.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419221445_last.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221333_fixMantToManyRelation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419221333_fixMantToManyRelation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\configurations\\taskconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:configurations\\taskconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419214828_last.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250419214828_last.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\configurations\\userconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:configurations\\userconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\configurations\\users_tasksconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:configurations\\users_tasksconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|c:\\users\\el-walid\\desktop\\hr-system\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4AE50D17-3059-470C-4DCB-9CAD4556A6AD}|IEEE.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
     }
   ],
   "DocumentGroupContainers": [
@@ -46,6 +143,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 0,
           "Children": [
             {
@@ -59,10 +157,91 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-20T19:36:46.699Z",
+=======
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IEEE",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\IEEE.csproj",
+              "RelativeDocumentMoniker": "IEEE.csproj",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\IEEE.csproj",
+              "RelativeToolTip": "IEEE.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-19T23:16:45.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T23:15:09.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20250419224256_userMeetings.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419224256_userMeetings.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419224256_userMeetings.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419224256_userMeetings.cs",
+              "RelativeToolTip": "Migrations\\20250419224256_userMeetings.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAgwCAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:42:56.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Entities\\User.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\User.cs",
+              "RelativeToolTip": "Entities\\User.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:32:48.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "meetings.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\meetings.cs",
+              "RelativeDocumentMoniker": "Entities\\meetings.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\meetings.cs*",
+              "RelativeToolTip": "Entities\\meetings.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:30:39.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Committee.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\Committee.cs",
+              "RelativeDocumentMoniker": "Entities\\Committee.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\Committee.cs",
+              "RelativeToolTip": "Entities\\Committee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:30:28.017Z",
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 5,
               "Title": "EditUserDto.cs",
               "DocumentMoniker": "E:\\projects\\Backend\\websiteieee\\hr-system\\DTO\\EditUserDto.cs",
@@ -98,11 +277,23 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-20T19:00:44.168Z",
+=======
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Data\\AppDbContext.cs*",
+              "RelativeToolTip": "Data\\AppDbContext.cs*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACAAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:37:12.061Z",
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
+<<<<<<< HEAD
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "E:\\projects\\Backend\\websiteieee\\hr-system\\DTO\\RegisterDto.cs",
               "RelativeDocumentMoniker": "DTO\\RegisterDto.cs",
@@ -150,11 +341,22 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-20T19:09:02.166Z",
+=======
+              "Title": "20250419222057_initial.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419222057_initial.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419222057_initial.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419222057_initial.cs",
+              "RelativeToolTip": "Migrations\\20250419222057_initial.cs",
+              "ViewState": "AgIAALQAAAAAAAAAAAAgwM8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:20:58.424Z",
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
+<<<<<<< HEAD
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\projects\\Backend\\websiteieee\\hr-system\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -163,6 +365,211 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-20T19:21:36.727Z",
+=======
+              "Title": "MeetingConfig.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\MeetingConfig.cs",
+              "RelativeDocumentMoniker": "Configurations\\MeetingConfig.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\MeetingConfig.cs",
+              "RelativeToolTip": "Configurations\\MeetingConfig.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAUwB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:39:27.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "20250419224047_dd.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419224047_dd.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419224047_dd.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419224047_dd.cs",
+              "RelativeToolTip": "Migrations\\20250419224047_dd.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:40:47.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Tasks.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\Tasks.cs",
+              "RelativeDocumentMoniker": "Entities\\Tasks.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Entities\\Tasks.cs",
+              "RelativeToolTip": "Entities\\Tasks.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:40:16.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "20250419223920_kk.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419223920_kk.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419223920_kk.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419223920_kk.cs",
+              "RelativeToolTip": "Migrations\\20250419223920_kk.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:39:20.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "20250419221903_llast.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221903_llast.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419221903_llast.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221903_llast.cs",
+              "RelativeToolTip": "Migrations\\20250419221903_llast.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:19:03.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20250419221811_lasst.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221811_lasst.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419221811_lasst.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221811_lasst.cs",
+              "RelativeToolTip": "Migrations\\20250419221811_lasst.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:18:11.739Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20250419221644_last.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221644_last.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419221644_last.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221644_last.cs",
+              "RelativeToolTip": "Migrations\\20250419221644_last.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:16:45.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "20250419221607_lastt.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221607_lastt.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419221607_lastt.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221607_lastt.cs",
+              "RelativeToolTip": "Migrations\\20250419221607_lastt.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:16:07.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "20250419221445_last.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221445_last.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419221445_last.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221445_last.cs",
+              "RelativeToolTip": "Migrations\\20250419221445_last.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:14:45.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "20250419221333_fixMantToManyRelation.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221333_fixMantToManyRelation.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419221333_fixMantToManyRelation.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419221333_fixMantToManyRelation.cs",
+              "RelativeToolTip": "Migrations\\20250419221333_fixMantToManyRelation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T22:13:33.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "20250419214828_last.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419214828_last.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250419214828_last.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Migrations\\20250419214828_last.cs",
+              "RelativeToolTip": "Migrations\\20250419214828_last.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:48:40.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "TaskConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\TaskConfiguration.cs",
+              "RelativeDocumentMoniker": "Configurations\\TaskConfiguration.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\TaskConfiguration.cs",
+              "RelativeToolTip": "Configurations\\TaskConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:39:32.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "UserConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\UserConfigurations.cs",
+              "RelativeDocumentMoniker": "Configurations\\UserConfigurations.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\UserConfigurations.cs",
+              "RelativeToolTip": "Configurations\\UserConfigurations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:36:25.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Users_tasksconfig.cs",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\Users_tasksconfig.cs",
+              "RelativeDocumentMoniker": "Configurations\\Users_tasksconfig.cs",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\Configurations\\Users_tasksconfig.cs",
+              "RelativeToolTip": "Configurations\\Users_tasksconfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T21:36:24.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-19T15:05:39.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\El-walid\\Desktop\\hr-system\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "C:\\Users\\El-walid\\Desktop\\hr-system\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-19T15:05:52.226Z",
+>>>>>>> d2cc6a3ef6812cfd16cd6e4b3d0c5bae1d1bdc5c
               "EditorCaption": ""
             }
           ]
