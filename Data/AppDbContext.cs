@@ -1,10 +1,12 @@
 ﻿using IEEE.Configurations;
 using IEEE.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace IEEE.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -16,21 +18,25 @@ namespace IEEE.Data
             modelBuilder.ApplyConfiguration(new TaskConfigurations());
 
             modelBuilder.ApplyConfiguration(new Users_TasksConfigurations());
+            modelBuilder.ApplyConfiguration(new MeetingConfig());
+
+
 
 
         }
 
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<Tasks> Tasks { get; set; }
-        public DbSet<Tasks> Users_Tasks { get; set; }
+        public DbSet<Users_Tasks> Users_Tasks { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<Committee> committees { get; set; }
       
         public DbSet<meetings> meetings { get; set; }
+
+        
 
     }
 }
