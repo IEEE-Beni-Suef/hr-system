@@ -7,7 +7,7 @@
 
 
         public ICollection<Meeting>? Meetings { get; set; } = new List<Meeting>();
-        public ICollection<Task>? Tasks { get; set; } = new List<Task>();
+        public ICollection<Tasks>? Tasks { get; set; } = new List<Tasks>();
 
     }
 }
