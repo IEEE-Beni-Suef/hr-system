@@ -4,26 +4,37 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IEEE.Configurations
 {
-    public class MeetingConfig : IEntityTypeConfiguration<meetings>
+    public class MeetingConfiguration : IEntityTypeConfiguration<Meeting>
     {
-        public void Configure(EntityTypeBuilder<meetings> builder)
+        public void Configure(EntityTypeBuilder<Meeting> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(m => m.Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(m => m.Id).ValueGeneratedOnAdd();
+            builder.Property(m => m.Title).IsRequired();
+            builder.Property(m => m.Description).IsRequired();
+            builder.Property(m => m.Recap).IsRequired();
 
-            builder.HasOne(m => m.Creator)
-                .WithMany(c => c.CreatorMeetings)
-                .HasForeignKey(c => c.CreatorId);
+            // علاقة Meeting مع Committee (many-to-one)
+            builder.HasOne(m => m.Committee)
+                .WithMany(c => c.Meetings)
+                .HasForeignKey(m => m.CommitteeId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // علاقة Meeting مع Users (many-to-many)
             builder.HasMany(m => m.Users)
                 .WithMany(u => u.Meetings)
-                .UsingEntity<Dictionary<string, object>>(
-                "Users_Meetings",
-                j => j.HasOne<User>().WithMany().OnDelete(DeleteBehavior.Cascade),
-                j => j.HasOne<meetings>().WithMany().OnDelete(DeleteBehavior.Restrict)
-                );
-
+                .UsingEntity<MeetingUser>(
+                    j => j.HasOne(mu => mu.User)
+                          .WithMany(u => u.MeetingUsers)
+                          .HasForeignKey(mu => mu.UserId),
+                    j => j.HasOne(mu => mu.Meeting)
+                          .WithMany(m => m.MeetingUsers)
+                          .HasForeignKey(mu => mu.MeetingId),
+                    j =>
+                    {
+                        j.HasKey(mu => new { mu.MeetingId, mu.UserId });
+                    });
         }
     }
 }
