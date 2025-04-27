@@ -20,13 +20,14 @@ namespace IEEE.Data
             modelBuilder.ApplyConfiguration(new MeetingConfiguration());
             modelBuilder.ApplyConfiguration(new Users_TasksConfigurations());
             modelBuilder.ApplyConfiguration(new MeetingConfiguration());
+            modelBuilder.ApplyConfiguration(new CommitteeConfig());
 
-           // modelBuilder.Entity<User>().ToTable("AspNetUsers");
+            // modelBuilder.Entity<User>().ToTable("AspNetUsers");
 
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Tasks> Tasks { get; set; }
+        public DbSet<Task> Tasks { get; set; }
         public DbSet<Users_Tasks> Users_Tasks { get; set; }
         public DbSet<MeetingUser> MeetingUsers { get; set; }
         public DbSet<Role> Roles { get; set; }
