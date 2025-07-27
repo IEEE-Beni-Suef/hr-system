@@ -17,9 +17,9 @@ namespace IEEE.Configurations
 
 
 
-            builder.HasOne(u => u.Committee)
-                   .WithMany(c => c.Users)
-                   .HasForeignKey(u => u.CommitteeId);
+            //builder.HasOne(u => u.Committee)
+            //       .WithMany(c => c.Users)
+            //       .HasForeignKey(u => u.CommitteeId);
 
         }
     }

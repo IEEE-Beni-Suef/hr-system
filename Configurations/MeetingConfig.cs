@@ -20,9 +20,9 @@ namespace IEEE.Configurations
                 .HasForeignKey(m => m.CommitteeId);
 
 
-            builder.HasOne(m => m.Head)
-                .WithMany(h => h.HeadMeetings)
-                .HasForeignKey(m => m.HeadId);
+            //builder.HasOne(m => m.Head)
+            //    .WithMany(h => h.HeadMeetings)
+            //    .HasForeignKey(m => m.HeadId);
 
 
             builder.HasMany(u => u.Users)

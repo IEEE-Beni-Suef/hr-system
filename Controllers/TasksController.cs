@@ -118,7 +118,7 @@ namespace IEEE.Controllers
             }
             var EvaluationsReadDto = evaluations.Select(e => new TaskEvaluation_GetDto
             {
-                MemberName = e.User.FullName,
+                MemberName = e.User.UserName,
                 Score = e.Score
             });
 

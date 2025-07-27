@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IEEE.DTO
+namespace IEEE.DTO.UserDTO
 {
     public class EditUserDto
     {
@@ -17,6 +17,8 @@ namespace IEEE.DTO
         public string Phone { get; set; }
         public string Sex { get; set; }
         public string Committee { get; set; }
-      //  public DateTime BirthOfDate { get; set; }
+
+        public string Password { get; set; }
+        //  public DateTime BirthOfDate { get; set; }
     }
 }

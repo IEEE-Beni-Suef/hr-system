@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IEEE.DTO
+namespace IEEE.DTO.UserDTO
 {
     public class LoginDto
     {
@@ -17,6 +17,6 @@ namespace IEEE.DTO
 
 
         [Required]
-        public string Role { get; set; }  
+        public int RoleId { get; set; }  
     }
 }

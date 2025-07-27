@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IEEE.DTO
+namespace IEEE.DTO.UserDTO
 {
     public class RegisterDto
     {
@@ -11,6 +11,11 @@ namespace IEEE.DTO
 
         [Required]
         public string FName { get; set; }
+
+
+        [Required]
+        public string MName { get; set; }
+
 
         [Required]
         public string LName { get; set; }
@@ -27,7 +32,16 @@ namespace IEEE.DTO
         [Required]
         public int CommitteeId { get; set; }
 
+        public string Year { get; set; }
+        public string Sex { get; set; }
+        public string Faculty { get; set; }
+        public string City { get; set; }
+        public string Phone { get; set; }
+        public string Goverment { get; set; }
+        public string Role { get; set; }
+        public string Committee { get; set; }
 
-       
+
+
     }
 }
