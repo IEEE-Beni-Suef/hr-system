@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -38,46 +39,46 @@ namespace IEEE.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-                // 1. التحقق من وجود الـ Role في AspNetRoles
-                var roleExists = await _context.Roles
-                    .AnyAsync(r => r.Id == UserFromRequest.RoleId);
 
-                if (!roleExists)
-                {
-                    return BadRequest($"Role with ID {UserFromRequest.RoleId} does not exist.");
-                }
+            // 1. التحقق من وجود الـ Role
+            var role = await _context.Roles
+                .Where(r => r.Id == UserFromRequest.RoleId)
+                .FirstOrDefaultAsync();
 
-                //// 2. التحقق من عدم تكرار الـ Username أو Email
-                //var existingUser = await userManager.FindByNameAsync(UserFromRequest.UserName);
-                //if (existingUser != null)
-                //{
-                //    return BadRequest("Username already exists.");
-                //}
+            if (role == null)
+                return BadRequest($"Role with ID {UserFromRequest.RoleId} does not exist.");
 
-              var  existingUser = await userManager.FindByEmailAsync(UserFromRequest.Email);
+            // 2. التحقق من عدم تكرار الـ Username أو Email
+            var existingUser = await userManager.FindByNameAsync(UserFromRequest.Email);
+            if (existingUser != null)
+            {
+                return BadRequest("Username already exists.");
+            }
+
+                existingUser = await userManager.FindByEmailAsync(UserFromRequest.Email);
                 if (existingUser != null)
                 {
                     return BadRequest("Email already exists.");
                 }
 
-                // 3. إنشاء الـ User
-                User user = new User
-                {
-                    UserName = UserFromRequest.Email, // Assuming Email is used as Username
-                    Email = UserFromRequest.Email ,
-                    FName = UserFromRequest.FirstName, 
-                    MName = UserFromRequest.MiddleName,
-                    LName = UserFromRequest.LastName,
-                    Faculty = UserFromRequest.Faculty,
-                    PhoneNumber = UserFromRequest.Phone,
-                    Sex = UserFromRequest.Sex,
-                    Goverment = UserFromRequest.Goverment,
-                    Year = UserFromRequest.Year,
-                    IsActive = false,
-                    RoleId = UserFromRequest.RoleId,
-                    CommitteeId = UserFromRequest.CommitteeIds != null && UserFromRequest.CommitteeIds.Any() ? UserFromRequest.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
-                    EmailConfirmed = false
-                };
+            // 3. إنشاء الـ User
+            User user = new User
+            {
+                UserName = UserFromRequest.Email, // Assuming Email is used as Username
+                Email = UserFromRequest.Email,
+                FName = UserFromRequest.FirstName,
+                MName = UserFromRequest.MiddleName,
+                LName = UserFromRequest.LastName,
+                Faculty = UserFromRequest.Faculty,
+                PhoneNumber = UserFromRequest.Phone,
+                Sex = UserFromRequest.Sex,
+                Goverment = UserFromRequest.Goverment,
+                Year = UserFromRequest.Year,
+                IsActive = false,
+                RoleId = UserFromRequest.RoleId,
+                CommitteeId = UserFromRequest.CommitteeIds != null && UserFromRequest.CommitteeIds.Any() ? UserFromRequest.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
+                EmailConfirmed = false 
+            }; 
 
 
             // 5. حفظ المستخدم بالباسورد
@@ -94,7 +95,13 @@ namespace IEEE.Controllers
 
 
 
-                return Ok(new { message = "User created successfully", userId = user.Id });
+            //// 5. ربط اليوزر بالـ Role
+            //var addRoleResult = await userManager.AddToRoleAsync(user, role.Name);
+            //if (!addRoleResult.Succeeded)
+            //    return BadRequest(addRoleResult.Errors);
+
+
+            return Ok(new { message = "User created successfully", userId = user.Id });
 
           }
 
@@ -108,7 +115,7 @@ namespace IEEE.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    User userfromdb = await userManager.FindByEmailAsync(userFromRequest.Email);
+                    User userfromdb = await userManager.FindByNameAsync(userFromRequest.Email);
 
                     if (userfromdb != null)
                     {
@@ -146,7 +153,8 @@ namespace IEEE.Controllers
 
                             return Ok(new
                             {
-                                token = tokenString
+                                token = tokenString ,
+                                userId = userfromdb.Id
                             });
                         }
                     }
