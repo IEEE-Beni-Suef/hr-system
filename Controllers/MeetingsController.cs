@@ -37,7 +37,6 @@ namespace IEEE.Controllers
                     Users = m.Users.Select(u => new GetUsersDto
                     {
                         Id = u.Id,
-                        UserName = u.UserName ,
                         RoleId = u.RoleId,  
                         Eamil = u.Email , 
                         IsActive = u.IsActive , 
@@ -73,13 +72,11 @@ namespace IEEE.Controllers
                     Head = new GetUsersDto
                     {
                         Id = m.Head.Id,
-                        UserName = m.Head.UserName,
                         Eamil = m.Head.Email
                     },
                     Users = m.Users.Select(u => new GetUsersDto
                     {
                         Id = u.Id,
-                        UserName = u.UserName,
                         Eamil = u.Email ,
                         RoleId = u.RoleId,
                         IsActive = u.IsActive,

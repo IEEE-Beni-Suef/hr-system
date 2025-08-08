@@ -26,8 +26,28 @@ namespace IEEE.Data
            .WithMany(r => r.Users)
            .HasForeignKey(u => u.RoleId)
            .HasPrincipalKey(r => r.Id) 
-           .OnDelete(DeleteBehavior.Restrict); 
+           .OnDelete(DeleteBehavior.Restrict);
 
+
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.Goverment)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.Year)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.Sex)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Faculty)
+                .HasConversion<string>();
 
 
         }

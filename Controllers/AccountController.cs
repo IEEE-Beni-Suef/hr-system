@@ -47,14 +47,14 @@ namespace IEEE.Controllers
                     return BadRequest($"Role with ID {UserFromRequest.RoleId} does not exist.");
                 }
 
-                // 2. التحقق من عدم تكرار الـ Username أو Email
-                var existingUser = await userManager.FindByNameAsync(UserFromRequest.UserName);
-                if (existingUser != null)
-                {
-                    return BadRequest("Username already exists.");
-                }
+                //// 2. التحقق من عدم تكرار الـ Username أو Email
+                //var existingUser = await userManager.FindByNameAsync(UserFromRequest.UserName);
+                //if (existingUser != null)
+                //{
+                //    return BadRequest("Username already exists.");
+                //}
 
-                existingUser = await userManager.FindByEmailAsync(UserFromRequest.Email);
+              var  existingUser = await userManager.FindByEmailAsync(UserFromRequest.Email);
                 if (existingUser != null)
                 {
                     return BadRequest("Email already exists.");
@@ -63,27 +63,25 @@ namespace IEEE.Controllers
                 // 3. إنشاء الـ User
                 User user = new User
                 {
-                    UserName = UserFromRequest.UserName,
-                    FName = UserFromRequest.FName,
-                    MName = UserFromRequest.MName,
-                    LName = UserFromRequest.LName,
+                    UserName = UserFromRequest.Email, // Assuming Email is used as Username
+                    Email = UserFromRequest.Email ,
+                    FName = UserFromRequest.FirstName, 
+                    MName = UserFromRequest.MiddleName,
+                    LName = UserFromRequest.LastName,
                     Faculty = UserFromRequest.Faculty,
-                    Email = UserFromRequest.Email,
-                    City = UserFromRequest.City,
-                    Phone = UserFromRequest.Phone,
+                    PhoneNumber = UserFromRequest.Phone,
                     Sex = UserFromRequest.Sex,
                     Goverment = UserFromRequest.Goverment,
                     Year = UserFromRequest.Year,
                     IsActive = false,
-                    Password = UserFromRequest.Password, 
                     RoleId = UserFromRequest.RoleId,
                     CommitteeId = UserFromRequest.CommitteeIds != null && UserFromRequest.CommitteeIds.Any() ? UserFromRequest.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
-
                     EmailConfirmed = false
                 };
 
-                // 5. حفظ المستخدم بالباسورد
-                Microsoft.AspNetCore.Identity.IdentityResult result = await userManager.CreateAsync(user, UserFromRequest.Password);
+
+            // 5. حفظ المستخدم بالباسورد
+            Microsoft.AspNetCore.Identity.IdentityResult result = await userManager.CreateAsync(user, UserFromRequest.Password);
 
                 if (!result.Succeeded)
                 {
@@ -110,24 +108,21 @@ namespace IEEE.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    User userfromdb = await userManager.FindByNameAsync(userFromRequest.UserName);
+                    User userfromdb = await userManager.FindByEmailAsync(userFromRequest.Email);
 
                     if (userfromdb != null)
                     {
                         bool found = await userManager.CheckPasswordAsync(userfromdb, userFromRequest.Password);
                         if (found)
                         {
-                            //  Check if user is active
-                            if (!userfromdb.IsActive)
-                            {
-                                return Unauthorized(new { message = "Your account is not activated yet." });
-                            }
 
                             List<Claim> UserClaim = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.NameIdentifier, userfromdb.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userfromdb.UserName)
+                    new Claim(ClaimTypes.Name, userfromdb.Email) ,
+                    new Claim("IsActive", userfromdb.IsActive.ToString()) 
+
                 };
 
                             var UserRoles = await userManager.GetRolesAsync(userfromdb);

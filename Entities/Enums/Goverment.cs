@@ -1,0 +1,33 @@
+﻿namespace IEEE.Entities.Enums
+{
+    public enum Goverment
+    {
+        Cairo,
+        Giza,
+        Alexandria,
+        PortSaid,
+        Suez,
+        Damietta,
+        Dakahlia,
+        Sharkia,
+        Qalyubia,
+        KafrElSheikh,
+        Gharbia,
+        Monufia,
+        Beheira,
+        Ismailia,
+        Minya,
+        BeniSuef,
+        Fayoum,
+        Assiut,
+        Sohag,
+        Qena,
+        Luxor,
+        Aswan,
+        RedSea,
+        NewValley,
+        Matrouh,
+        NorthSinai,
+        SouthSinai
+    }
+}

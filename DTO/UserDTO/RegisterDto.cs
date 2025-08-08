@@ -1,24 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using IEEE.Entities.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace IEEE.DTO.UserDTO
 {
     public class RegisterDto
     {
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "UserName can only contain letters and digits.")]
-        public string UserName { get; set; }
+
+       
 
         [Required]
-        public string FName { get; set; }
+        public string FirstName { get; set; }
 
 
         [Required]
-        public string MName { get; set; }
+        public string MiddleName { get; set; }
 
 
         [Required]
-        public string LName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 6)]
@@ -32,12 +31,11 @@ namespace IEEE.DTO.UserDTO
         [Required]
         public List<int> CommitteeIds { get; set; }      // IDs للكوميتيز اللي هيختارها
 
-        public string Year { get; set; }
-        public string Sex { get; set; }
-        public string Faculty { get; set; }
-        public string City { get; set; }
+        public StudyYear Year { get; set; }
+        public Sex Sex { get; set; }
+        public Faculty Faculty { get; set; }
         public string Phone { get; set; }
-        public string Goverment { get; set; }
+        public Goverment Goverment { get; set; }
         public int RoleId { get; set; }
 
 
