@@ -76,10 +76,22 @@ namespace IEEE.Controllers
                 Year = UserFromRequest.Year,
                 IsActive = false,
                 RoleId = UserFromRequest.RoleId,
-                CommitteeId = UserFromRequest.CommitteeIds != null && UserFromRequest.CommitteeIds.Any() ? UserFromRequest.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
                 EmailConfirmed = false 
-            }; 
+            };
 
+
+            // لو فيه CommitteesIds
+            if (UserFromRequest.CommitteeIds != null && UserFromRequest.CommitteeIds.Any())
+            {
+                var committees = await _context.Committees
+                    .Where(c => UserFromRequest.CommitteeIds.Contains(c.Id))
+                    .ToListAsync();
+
+                foreach (var committee in committees)
+                {
+                    user.Committees.Add(committee);
+                }
+            }
 
             // 5. حفظ المستخدم بالباسورد
             Microsoft.AspNetCore.Identity.IdentityResult result = await userManager.CreateAsync(user, UserFromRequest.Password);
@@ -167,7 +179,7 @@ namespace IEEE.Controllers
                                     year = userfromdb.Year,
                                     faculty = userfromdb.Faculty,
                                     roleId = userfromdb.RoleId,
-                                    committeeIds = userfromdb.Committees.Select(c => c.Id).ToList()
+                                   // committeeIds = userfromdb.Committees.Select(c => c.Id).ToList()
                                 }
                             });
                         }
