@@ -22,6 +22,8 @@ namespace IEEE.Entities
 
 
 
+
+
         // اللجنة اللي هو نائب فيها
         public int? ViceCommitteeId { get; set; }
         public Committee? ViceCommittee { get; set; }
@@ -30,9 +32,11 @@ namespace IEEE.Entities
         public ICollection<Tasks>? HeadTasks { get; set; } = new List<Tasks>();
         public ICollection<Users_Tasks>? Users_Tasks { get; set; } = new List<Users_Tasks>();
 
-       //  public ICollection<MeetingUser>? MeetingUsers { get; set; } = new List<MeetingUser>();
-         //public ICollection<Meeting>? CreatorMeetings { get; set; } = new List<Meeting>();
-        public ICollection<Meeting>? Meetings { get; set; } = new List<Meeting>();
+        public ICollection<Users_Meetings>? Users_Meetings { get; set; } = new List<Users_Meetings>();
+
+
+        //  public ICollection<MeetingUser>? MeetingUsers { get; set; } = new List<MeetingUser>();
+        //public ICollection<Meeting>? CreatorMeetings { get; set; } = new List<Meeting>();
         public ICollection<Committee> Committees { get; set; } = new List<Committee>();
 
         public ICollection<Committee> HeadCommittees { get; set; } = new List<Committee>();

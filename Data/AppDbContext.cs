@@ -20,6 +20,8 @@ namespace IEEE.Data
             modelBuilder.ApplyConfiguration(new Users_TasksConfigurations());
             modelBuilder.ApplyConfiguration(new MeetingConfig());
             modelBuilder.ApplyConfiguration(new CommitteeConfig());
+            modelBuilder.ApplyConfiguration(new Users_MeetingsCong());
+
 
             modelBuilder.Entity<User>()
            .HasOne(u => u.Role)
@@ -64,6 +66,7 @@ namespace IEEE.Data
         // public DbSet<User> Users { get; set; }
         public DbSet<Tasks> Tasks { get; set; }
         public DbSet<Users_Tasks> Users_Tasks { get; set; }
+        public DbSet<Users_Meetings> Users_Meetings { get; set; }
         public DbSet<Committee> Committees { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
     }
