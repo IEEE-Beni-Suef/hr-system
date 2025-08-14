@@ -55,7 +55,7 @@ namespace IEEE.Data
             modelBuilder.Entity<Committee>()
                 .HasMany(c => c.Vices)
                 .WithOne(u => u.ViceCommittee)
-                .HasForeignKey(u => u.ViceCommitteeId)
+                .HasForeignKey(u => u.CommitteeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 

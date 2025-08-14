@@ -17,6 +17,18 @@ namespace IEEE.Configurations
                 .HasForeignKey(c => c.HeadId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+
+
+            // جعل الـ Name فريد
+            builder.HasIndex(c => c.Name)
+                   .IsUnique();
+
+            // جعل الـ HeadId فريد (رئيس واحد لا يمكن أن يرأس أكثر من لجنة)
+            builder.HasIndex(c => c.HeadId)
+                   .IsUnique();
+
+
+
         }
 
 

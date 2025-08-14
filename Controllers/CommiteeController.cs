@@ -4,6 +4,8 @@ using IEEE.Data;
 using IEEE.Entities;
 using IEEE.DTO.CommitteeDto;
 using IEEE.DTO.MeetingsDto;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
 
 namespace IEEE.Controllers
 {
@@ -12,10 +14,16 @@ namespace IEEE.Controllers
     public class CommitteesController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
 
-        public CommitteesController(AppDbContext context)
+
+
+        public CommitteesController(AppDbContext context, IWebHostEnvironment env , Microsoft.AspNetCore.Identity.UserManager<User> userManager)
         {
             _context = context;
+            _env = env;
+            _userManager = userManager;
         }
 
        
@@ -70,11 +78,35 @@ namespace IEEE.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+
+            // التحقق من الهيد
+            if (committeeDto.HeadId.HasValue)
+            {
+                var head = await _context.Users.FindAsync(committeeDto.HeadId.Value);
+                if (head == null)
+                    return BadRequest("Head user not found");
+
+                var headRoles = await _userManager.GetRolesAsync(head);
+                if (headRoles.Contains("Member", StringComparer.OrdinalIgnoreCase))
+                    return BadRequest("A member cannot be assigned as a head");
+            }
+
+            // التحقق من الفيسز
+            var vices = await _context.Users
+                .Where(u => committeeDto.VicesId.Contains(u.Id))
+                .ToListAsync();
+
+            foreach (var vice in vices)
+            {
+                var viceRoles = await _userManager.GetRolesAsync(vice);
+                if (viceRoles.Contains("Member", StringComparer.OrdinalIgnoreCase))
+                    return BadRequest($"User {vice.UserName} with role 'Member' cannot be assigned as a vice");
+            }
             var committee = new Committee
             {
                 Name = committeeDto.Name,
                 HeadId = committeeDto.HeadId ?? null,
-                memberCount = committeeDto.MemberCount,
                 Vices = await _context.Users
                            .Where(u => committeeDto.VicesId.Contains(u.Id))
                            .ToListAsync(),
@@ -83,7 +115,7 @@ namespace IEEE.Controllers
             };
             await _context.Committees.AddAsync(committee);
             await _context.SaveChangesAsync();
-            return Created();
+            return Created("", new { message = "Committee created successfully" });
         }
 
         [HttpPut("{id}")]
@@ -100,7 +132,6 @@ namespace IEEE.Controllers
             // تحديث البيانات الأساسية
             committee.Name = committeeUpdateDto.Name;
             committee.HeadId = committeeUpdateDto.HeadId ?? committee.HeadId;
-            committee.memberCount = committeeUpdateDto.MemberCount ?? committee.memberCount;
             committee.ImageUrl = committeeUpdateDto.ImageUrl ?? committee.ImageUrl;
 
             // تحديث الـ Vices
@@ -130,10 +161,18 @@ namespace IEEE.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCommittee(int id)
         {
-            var committee = await _context.Committees.FindAsync(id);
+            var committee = await _context.Committees
+             .Include(c => c.Users) // لو عندك navigation property
+             .FirstOrDefaultAsync(c => c.Id == id);
+
             if (committee == null)
-            {
                 return NotFound();
+
+            // فك الارتباط
+            var users = _context.Users.Where(u => u.CommitteeId == id);
+            foreach (var user in users)
+            {
+                user.CommitteeId = null;
             }
 
             _context.Committees.Remove(committee);
@@ -141,6 +180,36 @@ namespace IEEE.Controllers
 
             return NoContent();
         }
+
+
+        //[HttpPost("image")]
+        //public async Task<IActionResult> UploadCommitteeImage(int committeeId, IFormFile file)
+        //{
+        //    var committee = await _context.Committees.FindAsync(committeeId);
+        //    if (committee == null)
+        //        return NotFound("Committee not found");
+
+        //    if (file == null || file.Length == 0)
+        //        return BadRequest("No file uploaded");
+
+        //    var fileName = Path.GetFileName(file.FileName); // اسم الملف الأصلي
+        //    var path = Path.Combine(_env.WebRootPath, "images", fileName); // مكان التخزين على السيرفر
+
+        //    // إنشاء مجلد الصور لو مش موجود
+        //    Directory.CreateDirectory(Path.Combine(_env.WebRootPath, "images"));
+
+        //    // حفظ الملف فعلياً في المجلد
+        //    using (var stream = new FileStream(path, FileMode.Create))
+        //    {
+        //        await file.CopyToAsync(stream);
+        //    }
+
+        //    // حفظ المسار في قاعدة البيانات
+        //    committee.ImageUrl = "/images/" + fileName;
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(new { message = "Image uploaded successfully", imageUrl = committee.ImageUrl });
+        //}
 
 
     }

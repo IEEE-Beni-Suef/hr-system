@@ -4,6 +4,7 @@ using IEEE.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IEEE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250814084812_editcomm2")]
+    partial class editcomm2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,13 +257,14 @@ namespace IEEE.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("ViceCommitteeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Year")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CommitteeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -271,6 +275,8 @@ namespace IEEE.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("ViceCommitteeId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -474,16 +480,16 @@ namespace IEEE.Migrations
 
             modelBuilder.Entity("IEEE.Entities.User", b =>
                 {
-                    b.HasOne("IEEE.Entities.Committee", "ViceCommittee")
-                        .WithMany("Vices")
-                        .HasForeignKey("CommitteeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("IEEE.Entities.ApplicationRole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("IEEE.Entities.Committee", "ViceCommittee")
+                        .WithMany("Vices")
+                        .HasForeignKey("ViceCommitteeId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Role");
 

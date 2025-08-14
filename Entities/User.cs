@@ -21,11 +21,6 @@ namespace IEEE.Entities
         public virtual ApplicationRole Role { get; set; }
 
 
-
-
-
-        // اللجنة اللي هو نائب فيها
-        public int? ViceCommitteeId { get; set; }
         public Committee? ViceCommittee { get; set; }
 
 
