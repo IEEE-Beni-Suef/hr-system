@@ -47,11 +47,11 @@ namespace IEEE.Controllers
                 var dto = new GetUsersDto
                 {
                     Id = user.Id,
-                    UserName = user.UserName,
                     Eamil = user.Email,
                     IsActive = user.IsActive,
                     RoleId = user.RoleId  ,
-                    CommitteeId = user.CommitteeId,
+                    CommitteesId = user.Committees.Select(c => c.Id).ToList() // كل اللجان
+,
                 };
 
                 userdto.Add(dto);
@@ -60,72 +60,105 @@ namespace IEEE.Controllers
             return Ok(userdto);
         }
 
-
-        // POST: api/Users/CreateUser
-        [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser(createuserdto dto)
+        // GET: api/Users/GetUser/{id}
+        [HttpGet("GetUser/{id}")]
+        public async Task<IActionResult> GetUser(int id)
         {
-            var user = new User
-            {
-                UserName = dto.UserName,
-                FName = dto.FName,
-                MName = dto.FName,
-                LName = dto.FName,
-                Year = dto.Year,
-                Sex = dto.Sex,
-                Goverment = dto.Goverment,
-                Phone = dto.Phone,
-                Password = dto.Password,
-                Email = dto.Email,
-                Faculty = dto.Faculty,
-                City    =dto.City,
-                IsActive = dto.IsActive ,
-                CommitteeId = dto.CommitteeIds != null && dto.CommitteeIds.Any() ? dto.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
-                RoleId = dto.RoleId
+            var user = await _userManager.Users
+                .Include(u => u.Committees)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            var userRolesIds = await _context.UserRoles
+                .Where(ur => ur.UserId == user.Id)
+                .Select(ur => ur.RoleId)
+                .ToListAsync();
+
+            var dto = new GetUsersDto
+            {
+                Id = user.Id,
+                Eamil = user.Email,
+                IsActive = user.IsActive,
+                RoleId = user.RoleId,
+                CommitteesId = user.Committees.Select(c => c.Id).ToList() // كل اللجان
             };
 
-            // التحقق من وجود الـ Role في AspNetRoles
-            var roleExists = await _context.Roles
-                .AnyAsync(r => r.Id == dto.RoleId);
-
-            if (!roleExists)
-            {
-                throw new ArgumentException($"Role with ID {dto.RoleId} does not exist in AspNetRoles.");
-            }
-
-            // التحقق من عدم تكرار الـ Username أو Email
-            var userExists = await _context.Users
-                .AnyAsync(u => u.UserName == dto.UserName || u.Email == dto.Email);
-
-            if (userExists)
-            {
-                throw new ArgumentException("Username or Email already exists.");
-            }
-
-
-
-
-            var result = await _userManager.CreateAsync(user, dto.Password);
-            await _context.SaveChangesAsync();
-
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(result.Errors);
-            }
-
-
-            //_context.Users.Add(user);
-
-            return Ok(new { message = "User created successfully", userId = user.Id });
+            return Ok(dto);
         }
+
+
+        //// POST: api/Users/CreateUser
+        //[HttpPost("CreateUser")]
+        //public async Task<IActionResult> CreateUser(createuserdto dto)
+        //{
+        //    var user = new User
+        //    {
+        //        FName = dto.FirstName,
+        //        MName = dto.MiddleName,
+        //        LName = dto.LastLName,
+        //        Year = dto.Year,
+        //        Sex = dto.Sex,
+        //        Goverment = dto.Goverment,
+        //        Phone = dto.Phone,
+        //        Email = dto.Email,
+        //        Faculty = dto.Faculty,
+        //        IsActive = dto.IsActive ,
+        //        CommitteeId = dto.CommitteeIds != null && dto.CommitteeIds.Any() ? dto.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
+        //        RoleId = dto.RoleId
+
+        //    };
+
+        //    // التحقق من وجود الـ Role في AspNetRoles
+        //    var roleExists = await _context.Roles
+        //        .AnyAsync(r => r.Id == dto.RoleId);
+
+        //    if (!roleExists)
+        //    {
+        //        throw new ArgumentException($"Role with ID {dto.RoleId} does not exist in AspNetRoles.");
+        //    }
+
+        //    // التحقق من عدم تكرار الـ Username أو Email
+        //    var userExists = await _context.Users
+        //        .AnyAsync(u => u.Email == dto.Email);
+
+        //    if (userExists)
+        //    {
+        //        throw new ArgumentException("Email already exists.");
+        //    }
+
+
+
+
+        //    var result = await _userManager.CreateAsync(user, dto.Password);
+        //    await _context.SaveChangesAsync();
+
+
+        //    if (!result.Succeeded)
+        //    {
+        //        return BadRequest(result.Errors);
+        //    }
+
+
+        //    //_context.Users.Add(user);
+
+        //    return Ok(new { message = "User created successfully", userId = user.Id });
+        //}
 
         // PUT: api/Users/EditUser/{id} 
         [HttpPut("EditUser/{id}")]
-        public async Task<IActionResult> EditUser(string id, [FromBody] EditUserDto dto)
+        public async Task<IActionResult> EditUser(int id, [FromBody] EditUserDto dto)
         {
-            var user = await _userManager.FindByIdAsync(id);
+
+            // تحميل المستخدم مع الـ Committees
+            var user = await _userManager.Users
+                .Include(u => u.Committees)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+
             if (user == null)
                 return NotFound("User not found");
 
@@ -138,19 +171,16 @@ namespace IEEE.Controllers
             {
                 throw new ArgumentException($"Role with ID {dto.RoleId} does not exist in AspNetRoles.");
             }
-
-            user.FName = dto.FName;
-            user.MName = dto.MName;
-            user.LName = dto.LName;
+            user.UserName = dto.Email;
+            user.FName = dto.FirstName;
+            user.MName = dto.MiddleName;
+            user.LName = dto.LastName;
             user.Sex  = dto.Sex;
-            user.Phone = dto.Phone;
+            user.PhoneNumber = dto.Phone;
             user.Goverment = dto.Goverment;
             user.Year = dto.Year; 
-            user.UserName = dto.UserName;
             user.Email = dto.Email;
             user.Faculty = dto.Faculty;
-            user.Password = dto.Password;
-            user.City = dto.City;
             user.RoleId = dto.RoleId;
             user.CommitteeId = dto.CommitteeIds.FirstOrDefault(); // Assuming the first committee is the primary one
 
@@ -165,11 +195,12 @@ namespace IEEE.Controllers
             // 3. Add the new selected committees
             foreach (var committee in selectedCommittees)
             {
-                user.Committees.Add(committee);
+
+                if (!user.Committees.Any(c => c.Id == committee.Id))
+                {
+                    user.Committees.Add(committee);
+                }
             }
-           
-
-
 
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)

@@ -1,4 +1,5 @@
 ﻿using IEEE.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ namespace IEEE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   // [Authorize(Roles = "High Board,HR")]
+
     public class AdminController : ControllerBase
     {
         private readonly Microsoft.AspNetCore.Identity.UserManager<User> userManager;

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using IEEE.Data;
+﻿using IEEE.Data;
 using IEEE.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Text.Json.Serialization;
 
 
 
@@ -26,6 +27,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddIdentity<User, ApplicationRole>()
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+        opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 
 builder.Services.AddAuthentication(options =>
@@ -51,6 +56,13 @@ builder.Services.AddAuthentication(options =>
 
 
 });
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
 
 builder.Services.AddCors(options =>
 {
@@ -83,5 +95,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//    await DefaultRolesSeeder.SeedAsync(roleManager);
+//}
 
 app.Run();

@@ -7,6 +7,7 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public string Recap { get; set; }
+        public DateTime DateTime { get;set; }
 
         public int CommitteeId { get; set; }
 

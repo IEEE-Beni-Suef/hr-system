@@ -26,13 +26,42 @@ namespace IEEE.Data
            .WithMany(r => r.Users)
            .HasForeignKey(u => u.RoleId)
            .HasPrincipalKey(r => r.Id) 
-           .OnDelete(DeleteBehavior.Restrict); 
+           .OnDelete(DeleteBehavior.Restrict);
+
+
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.Goverment)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.Year)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.Sex)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Faculty)
+                .HasConversion<string>();
+
+            // علاقة الـ Vices (واحد -> متعدد)
+            modelBuilder.Entity<Committee>()
+                .HasMany(c => c.Vices)
+                .WithOne(u => u.ViceCommittee)
+                .HasForeignKey(u => u.ViceCommitteeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
 
 
         }
 
-       // public DbSet<User> Users { get; set; }
+        // public DbSet<User> Users { get; set; }
         public DbSet<Tasks> Tasks { get; set; }
         public DbSet<Users_Tasks> Users_Tasks { get; set; }
         public DbSet<Committee> Committees { get; set; }

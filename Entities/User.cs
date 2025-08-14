@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using IEEE.Entities.Enums;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IEEE.Entities
 {
@@ -10,19 +11,20 @@ namespace IEEE.Entities
         public string MName { get; set; }
         public string LName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string Faculty { get; set; }
-        public string Year { get; set; } 
-        public string Goverment { get;set; }
-        public string Phone { get; set; }
-        public string Sex { get; set; }
-        public string City { get; set; }
-        public DateTime BirthOfDate { get;set; }  
+        public Faculty Faculty { get; set; }
+        public StudyYear Year { get; set; } 
+        public Goverment Goverment { get;set; }
+        public Sex Sex { get; set; }
         public bool IsActive { get; set; } = false;
         public int? CommitteeId { get; set; }
         public int RoleId { get; set; }
         public virtual ApplicationRole Role { get; set; }
 
+
+
+        // اللجنة اللي هو نائب فيها
+        public int? ViceCommitteeId { get; set; }
+        public Committee? ViceCommittee { get; set; }
 
 
         public ICollection<Tasks>? HeadTasks { get; set; } = new List<Tasks>();
@@ -34,7 +36,7 @@ namespace IEEE.Entities
         public ICollection<Committee> Committees { get; set; } = new List<Committee>();
 
         public ICollection<Committee> HeadCommittees { get; set; } = new List<Committee>();
-        
+
         public ICollection<Meeting> HeadMeetings { get; set; } = new List<Meeting>();
 
     }

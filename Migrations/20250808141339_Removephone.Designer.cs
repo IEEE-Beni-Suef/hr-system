@@ -4,6 +4,7 @@ using IEEE.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IEEE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250808141339_Removephone")]
+    partial class Removephone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,9 +90,6 @@ namespace IEEE.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("memberCount")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -193,13 +193,11 @@ namespace IEEE.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Faculty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Faculty")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Goverment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Goverment")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -241,9 +239,8 @@ namespace IEEE.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -252,12 +249,8 @@ namespace IEEE.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("ViceCommitteeId")
+                    b.Property<int>("Year")
                         .HasColumnType("int");
-
-                    b.Property<string>("Year")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -270,8 +263,6 @@ namespace IEEE.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("ViceCommitteeId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -482,14 +473,7 @@ namespace IEEE.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("IEEE.Entities.Committee", "ViceCommittee")
-                        .WithMany("Vices")
-                        .HasForeignKey("ViceCommitteeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Role");
-
-                    b.Navigation("ViceCommittee");
                 });
 
             modelBuilder.Entity("IEEE.Entities.Users_Tasks", b =>
@@ -587,8 +571,6 @@ namespace IEEE.Migrations
                     b.Navigation("Meetings");
 
                     b.Navigation("Tasks");
-
-                    b.Navigation("Vices");
                 });
 
             modelBuilder.Entity("IEEE.Entities.Tasks", b =>

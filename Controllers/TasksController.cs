@@ -43,7 +43,7 @@ namespace IEEE.Controllers
             {
                 Id = task.Id,
                 Description = task.Description,
-                HeadName = task.Head.FName + " " + task.Head.LName,
+                HeadName = task.Head.UserName,
                 Month = task.Month,
                 CommiteeName = task.Committee.Name
                 
@@ -68,7 +68,7 @@ namespace IEEE.Controllers
                 Description = Task.Description,
                 Month = Task.Month,
                 CommiteeName = Task.Committee.Name,
-                HeadName = Task.Head.FName + " " + Task.Head.LName
+                HeadName = Task.Head.UserName
 
             };
 
@@ -94,6 +94,7 @@ namespace IEEE.Controllers
             {
                 return BadRequest();
             }
+
             var Evaluations = EvaluationsDto.Select(a => new Users_Tasks
             {
                 UserId = a.AttendentId,

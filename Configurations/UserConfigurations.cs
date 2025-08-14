@@ -10,6 +10,10 @@ namespace IEEE.Configurations
         {
             builder.HasKey(u => u.Id);
 
+            // Unique Constraints
+           // builder.HasIndex(u => u.Email).IsUnique();
+
+
             builder.Property(u => u.Id).ValueGeneratedOnAdd();
             builder.Property(u => u.FName).IsRequired();
             builder.Property(u => u.LName).IsRequired();
