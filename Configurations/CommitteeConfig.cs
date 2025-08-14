@@ -11,16 +11,15 @@ namespace IEEE.Configurations
         {
 
 
+            // Head - علاقة واحد لواحد
             builder.HasOne(c => c.Head)
-                .WithMany(h => h.HeadCommittees)
-                .HasForeignKey(c => c.HeadId);
-
-
-            builder.HasMany(c => c.Users)
-                .WithMany(u => u.Committees);
-
+                .WithMany(u => u.HeadCommittees)
+                .HasForeignKey(c => c.HeadId)
+                .OnDelete(DeleteBehavior.SetNull);
 
         }
-    }
 
+
+    }
 }
+

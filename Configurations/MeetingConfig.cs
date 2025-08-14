@@ -25,14 +25,14 @@ namespace IEEE.Configurations
                 .HasForeignKey(m => m.HeadId);
 
 
-            builder.HasMany(u => u.Users)
-             .WithMany(m => m.Meetings)
-             .UsingEntity<Dictionary<string, object>>(
-                 "Users_Meetings",
-                 j => j.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.Cascade),
-                 j => j.HasOne<Meeting>().WithMany().HasForeignKey("MeetingId").OnDelete(DeleteBehavior.Restrict)
+            //builder.HasMany(u => u.Users)
+            // .WithMany(m => m.Meetings)
+            // .UsingEntity<Dictionary<string, object>>(
+            //     "Users_Meetings",
+            //     j => j.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.Cascade),
+            //     j => j.HasOne<Meeting>().WithMany().HasForeignKey("MeetingId").OnDelete(DeleteBehavior.Restrict)
 
-                 );
+            //     );
 
 
         }

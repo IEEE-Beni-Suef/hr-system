@@ -29,8 +29,8 @@ namespace IEEE.Controllers
         }
 
 
-        // GET: api/Users/GetAllUsers
-        [HttpGet("GetAllUsers")]
+        // GET: api/Users
+        [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userManager.Users.Include(u => u.Committees).ToListAsync();
@@ -60,8 +60,8 @@ namespace IEEE.Controllers
             return Ok(userdto);
         }
 
-        // GET: api/Users/GetUser/{id}
-        [HttpGet("GetUser/{id}")]
+        // GET: api/Users/{id}
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _userManager.Users
@@ -91,65 +91,67 @@ namespace IEEE.Controllers
         }
 
 
-        //// POST: api/Users/CreateUser
-        //[HttpPost("CreateUser")]
-        //public async Task<IActionResult> CreateUser(createuserdto dto)
-        //{
-        //    var user = new User
-        //    {
-        //        FName = dto.FirstName,
-        //        MName = dto.MiddleName,
-        //        LName = dto.LastLName,
-        //        Year = dto.Year,
-        //        Sex = dto.Sex,
-        //        Goverment = dto.Goverment,
-        //        Phone = dto.Phone,
-        //        Email = dto.Email,
-        //        Faculty = dto.Faculty,
-        //        IsActive = dto.IsActive ,
-        //        CommitteeId = dto.CommitteeIds != null && dto.CommitteeIds.Any() ? dto.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
-        //        RoleId = dto.RoleId
+        // POST: api/Users/CreateUser
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(createuserdto dto)
+        {
+            var user = new User
+            {
+                UserName = dto.Email,
+                FName = dto.FirstName,
+                MName = dto.MiddleName,
+                LName = dto.LastName,
+                Year = dto.Year,
+                Sex = dto.Sex,
+                Goverment = dto.Goverment,
+                PhoneNumber = dto.Phone,
+                Email = dto.Email,
+                Faculty = dto.Faculty,
+                IsActive = dto.IsActive,
+                CommitteeId = dto.CommitteeIds != null && dto.CommitteeIds.Any() ? dto.CommitteeIds.FirstOrDefault() : null, // Assuming the first committee is assigned
+                RoleId = dto.RoleId,
+                PasswordHash = dto.Password
 
-        //    };
+            };
 
-        //    // التحقق من وجود الـ Role في AspNetRoles
-        //    var roleExists = await _context.Roles
-        //        .AnyAsync(r => r.Id == dto.RoleId);
+            // التحقق من وجود الـ Role في AspNetRoles
+            var roleExists = await _context.Roles
+                .AnyAsync(r => r.Id == dto.RoleId);
 
-        //    if (!roleExists)
-        //    {
-        //        throw new ArgumentException($"Role with ID {dto.RoleId} does not exist in AspNetRoles.");
-        //    }
+            if (!roleExists)
+            {
+                throw new ArgumentException($"Role with ID {dto.RoleId} does not exist in AspNetRoles.");
+            }
 
-        //    // التحقق من عدم تكرار الـ Username أو Email
-        //    var userExists = await _context.Users
-        //        .AnyAsync(u => u.Email == dto.Email);
+            // التحقق من عدم تكرار الـ Username أو Email
+            var userExists = await _context.Users
+                .AnyAsync(u => u.Email == dto.Email);
 
-        //    if (userExists)
-        //    {
-        //        throw new ArgumentException("Email already exists.");
-        //    }
-
-
-
-
-        //    var result = await _userManager.CreateAsync(user, dto.Password);
-        //    await _context.SaveChangesAsync();
+            if (userExists)
+            {
+                throw new ArgumentException("Email already exists.");
+            }
 
 
-        //    if (!result.Succeeded)
-        //    {
-        //        return BadRequest(result.Errors);
-        //    }
 
 
-        //    //_context.Users.Add(user);
+            var result = await _userManager.CreateAsync(user, dto.Password);
+            await _context.SaveChangesAsync();
 
-        //    return Ok(new { message = "User created successfully", userId = user.Id });
-        //}
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+
+            //_context.Users.Add(user);
+
+            return Ok(new { message = "User created successfully", userId = user.Id });
+        }
 
         // PUT: api/Users/EditUser/{id} 
-        [HttpPut("EditUser/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(int id, [FromBody] EditUserDto dto)
         {
 
@@ -216,13 +218,14 @@ namespace IEEE.Controllers
             return Ok(roles);
         }
 
-        // DELETE: api/Users/DeleteUser/{id}
-        [HttpDelete("DeleteUser/{id}")]
+        // DELETE: api/Users/User/{id}
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 return NotFound("User not found");
+
 
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)

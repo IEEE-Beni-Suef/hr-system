@@ -14,11 +14,10 @@
         public Committee? Committee { get; set; }
 
 
-        public int HeadId { get; set; }
+        public int? HeadId { get; set; }
         public User? Head { get; set; }
 
-
-        public ICollection<User>? Users { get; set; }
+        public ICollection<Users_Meetings>? Users_Meetings { get; set; } = new List<Users_Meetings>();
         
     }
 }

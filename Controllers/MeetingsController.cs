@@ -19,29 +19,27 @@ namespace IEEE.Controllers
         {
             _context = context;
         }
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Meeting>>> GetMeetings()
+        public async Task<ActionResult<IEnumerable<GetAllMeetingsDto>>> GetMeetings()
         {
-
             var meetings = await _context.Meetings
                 .Include(m => m.Committee)
                 .Include(m => m.Head)
+                .Include(m => m.Users_Meetings)
+                    .ThenInclude(um => um.User) // نجيب بيانات اليوزر
                 .Select(m => new GetAllMeetingsDto
                 {
                     Id = m.Id,
                     Title = m.Title,
                     Description = m.Description,
-                    CommitteeName = m.Committee.Name,
-                    HeadUserName = m.Head.UserName ,
-                    Users = m.Users.Select(u => new GetUsersDto
+                    CommitteeName = m.Committee != null ? m.Committee.Name : null,
+                    HeadUserName = m.Head != null ? m.Head.UserName : null,
+                    Users = m.Users_Meetings.Select(um => new GetUsersDto
                     {
-                        Id = u.Id,
-                        RoleId = u.RoleId,  
-                        Eamil = u.Email , 
-                        IsActive = u.IsActive , 
-                       // CommitteeId = u.CommitteeId 
-
+                        Id = um.User.Id,
+                        RoleId = um.User.RoleId,
+                        Eamil = um.User.Email,
+                        IsActive = um.User.IsActive
                     }).ToList()
                 })
                 .ToListAsync();
@@ -49,14 +47,15 @@ namespace IEEE.Controllers
             return Ok(meetings);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Meeting>> GetMeeting(int id)
-        {
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetMeetingDto>> GetMeeting(int id)
+        {
             var meeting = await _context.Meetings
                 .Include(m => m.Committee)
-                .Include(m => m.Users)
                 .Include(m => m.Head)
+                .Include(m => m.Users_Meetings)
+                    .ThenInclude(um => um.User)
                 .Where(m => m.Id == id)
                 .Select(m => new GetMeetingDto
                 {
@@ -64,24 +63,29 @@ namespace IEEE.Controllers
                     Title = m.Title,
                     Description = m.Description,
                     Recap = m.Recap,
-                    Committee = new CommitteeGetDto
-                    {
-                        Id = m.Committee.Id,
-                        Name = m.Committee.Name
-                    },
-                    Head = new GetUsersDto
-                    {
-                        Id = m.Head.Id,
-                        Eamil = m.Head.Email
-                    },
-                    Users = m.Users.Select(u => new GetUsersDto
-                    {
-                        Id = u.Id,
-                        Eamil = u.Email ,
-                        RoleId = u.RoleId,
-                        IsActive = u.IsActive,
-                      //  CommitteeId = u.CommitteeId
-                    }).ToList()
+                    Committee = m.Committee != null
+                        ? new CommitteeGetDto
+                        {
+                            Id = m.Committee.Id,
+                            Name = m.Committee.Name
+                        }
+                        : null,
+                    Head = m.Head != null
+                        ? new GetUsersDto
+                        {
+                            Id = m.Head.Id,
+                            Eamil = m.Head.Email
+                        }
+                        : null,
+                    Users = m.Users_Meetings
+                        .Select(um => new GetUsersDto
+                        {
+                            Id = um.User.Id,
+                            Eamil = um.User.Email,
+                            RoleId = um.User.RoleId,
+                            IsActive = um.User.IsActive
+                            // CommitteeId = um.User.CommitteeId
+                        }).ToList()
                 })
                 .FirstOrDefaultAsync();
 
@@ -120,14 +124,18 @@ namespace IEEE.Controllers
                 Recap = dto.Recap,
                 CommitteeId = dto.CommitteeId,
                 HeadId = dto.HeadId,
-                Users = users
+                Users_Meetings = users.Select(u => new Users_Meetings
+                {
+                    UserId = u.Id
+                }).ToList()
             };
 
             _context.Meetings.Add(meeting);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(PostMeeting), new { id = meeting.Id }, meeting);
+            return CreatedAtAction(nameof(GetMeeting), new { id = meeting.Id }, meeting);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMeeting(int id, CreateMeetingDto dto)
@@ -152,26 +160,27 @@ namespace IEEE.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMeeting(int id)
         {
-            // حذف العلاقات أولًا
+            // هات الميتنج مع جدول Users_Meetings
             var meeting = await _context.Meetings
-                .Include(m => m.Users)
+                .Include(m => m.Users_Meetings)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (meeting == null)
                 return NotFound();
 
-            // فك الارتباط مع المستخدمين (users)
-            meeting.Users.Clear();
+            // لو فيه علاقات، امسحها
+            if (meeting.Users_Meetings.Any())
+            {
+                _context.Users_Meetings.RemoveRange(meeting.Users_Meetings);
+                await _context.SaveChangesAsync();
+            }
 
-            // احفظ التغيير الأول عشان يفك العلاقة
-            await _context.SaveChangesAsync();
-
-            // بعدين احذف الميتنج
+            // احذف الميتنج نفسه
             _context.Meetings.Remove(meeting);
             await _context.SaveChangesAsync();
 
             return NoContent();
-
         }
+
     }
 }
