@@ -23,29 +23,22 @@ namespace IEEE.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetAllMeetingsDto>>> GetMeetings()
+        public async Task<ActionResult<IEnumerable<GetMeetingDto>>> GetMeetings()
         {
             var meetings = await _context.Meetings
                 .Include(m => m.Committee)
                 .Include(m => m.Head)
-                .Include(m => m.Users_Meetings)
-                    .ThenInclude(um => um.User) // نجيب بيانات اليوزر
-                .Select(m => new GetAllMeetingsDto
+                .Select(m => new GetMeetingDto
                 {
                     Id = m.Id,
                     Title = m.Title,
                     Description = m.Description,
+                    Recap = m.Recap,
+                    DateTime = m.DateTime,
+                    Type = m.Type,
                     CommitteeName = m.Committee != null ? m.Committee.Name : null,
-                    HeadUserName = m.Head != null ? m.Head.UserName : null,
-                    Users = m.Users_Meetings.Select(um => new GetUsersDto
-                    {
-                        Id = um.User.Id,
-                        RoleId = um.User.RoleId,
-                        Eamil = um.User.Email,
-                        IsActive = um.User.IsActive
-                    }).ToList()
-                })
-                .ToListAsync();
+                    HeadName = m.Head != null ? m.Head.UserName : null,
+                }).ToListAsync();
 
             return Ok(meetings);
         }
@@ -54,52 +47,31 @@ namespace IEEE.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetMeetingDto>> GetMeeting(int id)
         {
-            var meeting = await _context.Meetings
-                .Include(m => m.Committee)
-                .Include(m => m.Head)
-                .Include(m => m.Users_Meetings)
-                    .ThenInclude(um => um.User)
-                .Where(m => m.Id == id)
-                .Select(m => new GetMeetingDto
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Description = m.Description,
-                    Recap = m.Recap,
-                    Committee = m.Committee != null
-                        ? new CommitteeGetDto
-                        {
-                            Id = m.Committee.Id,
-                            Name = m.Committee.Name
-                        }
-                        : null,
-                    Head = m.Head != null
-                        ? new GetUsersDto
-                        {
-                            Id = m.Head.Id,
-                            Eamil = m.Head.Email
-                        }
-                        : null,
-                    Users = m.Users_Meetings
-                        .Select(um => new GetUsersDto
-                        {
-                            Id = um.User.Id,
-                            Eamil = um.User.Email,
-                            RoleId = um.User.RoleId,
-                            IsActive = um.User.IsActive
-                            // CommitteeId = um.User.CommitteeId
-                        }).ToList()
-                })
-                .FirstOrDefaultAsync();
-
+            var meeting = _context.Meetings.Where(m => m.Id == id).
+                Include(m=>m.Head)
+                .Include(m=>m.Committee)
+                .FirstOrDefault();
             if (meeting == null)
-                return NotFound();
+                return NotFound("Meeting not found.");
 
-            return Ok(meeting);
+            var meetingDto = new GetMeetingDto
+            {
+                Id = meeting.Id,
+                Title = meeting.Title,
+                Description = meeting.Description,
+                Recap = meeting.Recap,
+                DateTime = meeting.DateTime,
+                Type = meeting.Type,
+                CommitteeName = meeting.Committee != null ? meeting.Committee.Name : null,
+                HeadName = meeting.Head != null ? meeting.Head.UserName : null,
+
+            };
+            return Ok(meetingDto);
+
         }
 
         [HttpPost]
-        public async Task<ActionResult<Meeting>> PostMeeting(CreateMeetingDto dto)
+        public async Task<ActionResult> PostMeeting(CreateMeetingDto dto)
         {
             // تحقق من وجود اللجنة
             var committee = await _context.Committees.FindAsync(dto.CommitteeId);
@@ -111,54 +83,44 @@ namespace IEEE.Controllers
             if (head == null)
                 return BadRequest("Head user not found.");
 
-            // تحقق من وجود المستخدمين
-            var users = await _context.Users
-                .Where(u => dto.UserIds.Contains(u.Id))
-                .ToListAsync();
-
-            if (users.Count != dto.UserIds.Count)
-                return BadRequest("Some users not found.");
-
             // أنشئ الاجتماع
             var meeting = new Meeting
             {
                 Title = dto.Title,
                 Description = dto.Description,
                 Recap = dto.Recap,
+                DateTime = dto.DateTime,
+                Type = dto.Type,
                 CommitteeId = dto.CommitteeId,
                 HeadId = dto.HeadId,
-                Users_Meetings = users.Select(u => new Users_Meetings
-                {
-                    UserId = u.Id
-                }).ToList()
-            };
+                  };
 
-            _context.Meetings.Add(meeting);
+            await _context.Meetings.AddAsync(meeting);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMeeting), new { id = meeting.Id }, meeting);
+            return Created();
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMeeting(int id, CreateMeetingDto dto)
-        {
-            var meeting = await _context.Meetings.FindAsync(id);
-            if (meeting == null)
-                return NotFound("Meeting not found.");
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutMeeting(int id, CreateMeetingDto dto)
+        //{
+        //    var meeting = await _context.Meetings.FindAsync(id);
+        //    if (meeting == null)
+        //        return NotFound("Meeting not found.");
 
-            // تحديث القيم
-            meeting.Title = dto.Title;
-            meeting.Description = dto.Description;
-            meeting.CommitteeId = dto.CommitteeId;
-            meeting.Recap = dto.Recap;
-            meeting.HeadId= dto.HeadId;
+        //    // تحديث القيم
+        //    meeting.Title = dto.Title;
+        //    meeting.Description = dto.Description;
+        //    meeting.CommitteeId = dto.CommitteeId;
+        //    meeting.Recap = dto.Recap;
+        //    meeting.HeadId= dto.HeadId;
 
-            // حفظ التغييرات
-            await _context.SaveChangesAsync();
+        //    // حفظ التغييرات
+        //    await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMeeting(int id)

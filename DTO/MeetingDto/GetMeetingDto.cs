@@ -9,9 +9,10 @@ namespace IEEE.DTO.MeetingDto
         public string Title { get; set; }
         public string Description { get; set; }
         public string Recap { get; set; }
-        public CommitteeGetDto Committee { get; set; }
-        public GetUsersDto Head { get; set; }
-        public List<GetUsersDto> Users { get; set; }
+        public DateTime DateTime { get; set; }
+        public string Type { get; set; }
+        public string CommitteeName { get; set; }
+        public string HeadName { get; set; }
 
 
     }

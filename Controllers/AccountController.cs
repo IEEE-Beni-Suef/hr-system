@@ -1,7 +1,6 @@
 ﻿using IEEE.Data;
 using IEEE.DTO.UserDTO;
 using IEEE.Entities;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
