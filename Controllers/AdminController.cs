@@ -8,7 +8,7 @@ namespace IEEE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   // [Authorize(Roles = "High Board,HR")]
+    //[Authorize(Roles = "High Board,HR")]
 
     public class AdminController : ControllerBase
     {

@@ -6,11 +6,14 @@ using IEEE.DTO.CommitteeDto;
 using IEEE.DTO.MeetingsDto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IEEE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   //[Authorize(Roles = "High Board,HR")]
+
     public class CommitteesController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -79,19 +82,14 @@ namespace IEEE.Controllers
                 return BadRequest(ModelState);
             }
 
+            // تحقق من وجود head
+            var head = await _context.Users.FindAsync(committeeDto.HeadId);
+            if (head == null)
+                return BadRequest("Head user not found.");
 
-            // التحقق من الهيد
-            if (committeeDto.HeadId.HasValue)
-            {
-                var head = await _context.Users.FindAsync(committeeDto.HeadId.Value);
-                if (head == null)
-                    return BadRequest("Head user not found");
-
-                var headRoles = await _userManager.GetRolesAsync(head);
-                if (headRoles.Contains("Member", StringComparer.OrdinalIgnoreCase))
-                    return BadRequest("A member cannot be assigned as a head");
-            }
-
+            // تحقق أن دوره هو Head
+            if (head.RoleId != 2)
+                return BadRequest($"User {head.UserName} does not have the required role to be a head.");
             // التحقق من الفيسز
             var vices = await _context.Users
                 .Where(u => committeeDto.VicesId.Contains(u.Id))
@@ -99,14 +97,24 @@ namespace IEEE.Controllers
 
             foreach (var vice in vices)
             {
-                var viceRoles = await _userManager.GetRolesAsync(vice);
-                if (viceRoles.Contains("Member", StringComparer.OrdinalIgnoreCase))
-                    return BadRequest($"User {vice.UserName} with role 'Member' cannot be assigned as a vice");
+                // التحقق أن RoleId = 5
+                if (vice.RoleId != 5)
+                    return BadRequest($"User {vice.UserName} does not have the required role to be a vice.");
             }
+
+
+            // تحقق أن الهيد مش موجود في لجنة تانية
+            bool headExistsInAnotherCommittee = await _context.Committees
+                .AnyAsync(c => c.HeadId == committeeDto.HeadId);
+
+            if (headExistsInAnotherCommittee)
+                return BadRequest($"User {head.UserName} is already assigned as a head in another committee.");
+
+
             var committee = new Committee
             {
                 Name = committeeDto.Name,
-                HeadId = committeeDto.HeadId ?? null,
+                HeadId = committeeDto.HeadId ,
                 Vices = await _context.Users
                            .Where(u => committeeDto.VicesId.Contains(u.Id))
                            .ToListAsync(),
@@ -117,11 +125,10 @@ namespace IEEE.Controllers
             await _context.SaveChangesAsync();
             return Created("", new { message = "Committee created successfully" });
         }
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCommittee(int id,CommitteeUpdateDto committeeUpdateDto)
+        public async Task<IActionResult> PutCommittee(int id, CommitteeUpdateDto committeeUpdateDto)
         {
-            // تحميل الكوميتي مع الـ Vices
+            // تحميل اللجنة
             var committee = await _context.Committees
                 .Include(c => c.Vices)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -129,35 +136,64 @@ namespace IEEE.Controllers
             if (committee == null)
                 return NotFound();
 
-            // تحديث البيانات الأساسية
-            committee.Name = committeeUpdateDto.Name;
-            committee.HeadId = committeeUpdateDto.HeadId ?? committee.HeadId;
-            committee.ImageUrl = committeeUpdateDto.ImageUrl ?? committee.ImageUrl;
+            // ✅ تحقق من الـ Head
+            if (committeeUpdateDto.HeadId.HasValue)
+            {
+                var head = await _context.Users.FindAsync(committeeUpdateDto.HeadId.Value);
+                if (head == null)
+                    return BadRequest("Head user not found.");
 
-            // تحديث الـ Vices
+                if (head.RoleId != 2)
+                    return BadRequest($"User {head.UserName} does not have the required role to be a head.");
+
+                bool headExistsInAnotherCommittee = await _context.Committees
+                    .AnyAsync(c => c.HeadId == committeeUpdateDto.HeadId.Value && c.Id != id);
+
+                if (headExistsInAnotherCommittee)
+                    return BadRequest($"User {head.UserName} is already assigned as a head in another committee.");
+            }
+            // ✅ تحقق من الـ Vices
             if (committeeUpdateDto.VicesId != null && committeeUpdateDto.VicesId.Any())
             {
-                // مسح الـ Vices القديمة
-                committee.Vices.Clear();
-
-                // إضافة الـ Vices الجديدة من الـ IDs
                 var vices = await _context.Users
                     .Where(u => committeeUpdateDto.VicesId.Contains(u.Id))
                     .ToListAsync();
 
                 foreach (var vice in vices)
                 {
+                    if (vice.RoleId != 5)
+                        return BadRequest($"User {vice.UserName} does not have the required role to be a vice.");
+
+                    // تحقق إن الـ Vice مش في لجنة تانية
+                    bool isViceInAnotherCommittee = await _context.Committees
+                        .AnyAsync(c => c.Id != id && c.Vices.Any(v => v.Id == vice.Id));
+
+                    if (isViceInAnotherCommittee)
+                        return BadRequest($"User {vice.UserName} is already assigned as a vice in another committee.");
+                }
+
+                // مسح الـ Vices القديمة
+                committee.Vices.Clear();
+
+                // إضافة الـ Vices الجديدة
+                foreach (var vice in vices)
+                {
                     committee.Vices.Add(vice);
                 }
             }
+
+            // تحديث البيانات الأساسية
+            committee.Name = committeeUpdateDto.Name;
+            committee.HeadId = committeeUpdateDto.HeadId ?? committee.HeadId;
+            committee.ImageUrl = committeeUpdateDto.ImageUrl ?? committee.ImageUrl;
 
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
-        
 
-        
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCommittee(int id)
         {

@@ -66,7 +66,8 @@ builder.Services.AddCors(options =>
                   "https://ieee-mangment.vercel.app",  // Your production frontend
                   "http://localhost:3000",             // Local development
                   "http://localhost:5173",             // Vite default port
-                  "http://localhost:4173"              // Vite preview port
+                  "http://localhost:4173"     ,
+                  "http://192.168.1.96:5173"// Vite preview port
               )
               .AllowAnyHeader()
               .AllowAnyMethod()

@@ -1,6 +1,7 @@
 ﻿using IEEE.Data;
 using IEEE.DTO.TasksDto;
 using IEEE.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ namespace IEEE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "High Board,Head,Vice,HR")]
+
     public class TasksController : ControllerBase
     {
         private readonly AppDbContext _context;
