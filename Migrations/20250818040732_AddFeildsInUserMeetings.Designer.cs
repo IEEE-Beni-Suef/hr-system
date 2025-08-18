@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IEEE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250814161346_initial")]
-    partial class initial
+    [Migration("20250818040732_AddFeildsInUserMeetings")]
+    partial class AddFeildsInUserMeetings
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,15 +88,17 @@ namespace IEEE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("memberCount")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeadId");
+                    b.HasIndex("HeadId")
+                        .IsUnique()
+                        .HasFilter("[HeadId] IS NOT NULL");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Committees");
                 });
@@ -262,14 +264,13 @@ namespace IEEE.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("ViceCommitteeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Year")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommitteeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -281,8 +282,6 @@ namespace IEEE.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("ViceCommitteeId");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -292,6 +291,12 @@ namespace IEEE.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MeetingId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAttend")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Score")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "MeetingId");
@@ -485,16 +490,16 @@ namespace IEEE.Migrations
 
             modelBuilder.Entity("IEEE.Entities.User", b =>
                 {
+                    b.HasOne("IEEE.Entities.Committee", "ViceCommittee")
+                        .WithMany("Vices")
+                        .HasForeignKey("CommitteeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("IEEE.Entities.ApplicationRole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("IEEE.Entities.Committee", "ViceCommittee")
-                        .WithMany("Vices")
-                        .HasForeignKey("ViceCommitteeId")
-                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Role");
 

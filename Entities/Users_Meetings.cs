@@ -7,5 +7,8 @@
 
         public int MeetingId { get; set; }
         public Meeting? Meeting { get; set; }
+        public bool IsAttend { get; set; }
+        public int Score { get; set; }
+
     }
 }

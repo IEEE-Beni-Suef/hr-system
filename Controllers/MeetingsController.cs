@@ -1,5 +1,6 @@
 ﻿using IEEE.Data;
 using IEEE.DTO.CommitteeDto;
+using IEEE.DTO.MeetingAttendents;
 using IEEE.DTO.MeetingDto;
 using IEEE.DTO.UserDTO;
 using IEEE.Entities;
@@ -144,5 +145,58 @@ namespace IEEE.Controllers
             return NoContent();
         }
 
+        [HttpPost("attendent")]
+        public async Task<IActionResult> AddAttendent(CreateAttendentsDto createAttendentsDto)
+        {
+            // check meeting existance
+            var meeting = await _context.Meetings.FindAsync(createAttendentsDto.MeetingId);
+            if (meeting == null)
+                return NotFound("Meeting not found.");
+
+            foreach(var userAttendent in createAttendentsDto.UsersAttendents)
+            {
+                // check user existance
+                var user = await _context.Users.FindAsync(userAttendent.UserId);
+                if (user == null)
+                    return BadRequest($"User with ID {userAttendent.UserId} not found.");
+                // check if the user is already an attendent
+                var existingAttendent = await _context.Users_Meetings
+                    .FirstOrDefaultAsync(um => um.UserId == userAttendent.UserId && um.MeetingId == createAttendentsDto.MeetingId);
+                if (existingAttendent != null)
+                    continue; // skip if already exists
+                // add the new attendent
+                var users_Meeting = new Users_Meetings
+                {
+                    UserId = userAttendent.UserId,
+                    MeetingId = createAttendentsDto.MeetingId,
+                    IsAttend = userAttendent.isAttend,
+                    Score = userAttendent.Score
+                };
+                await _context.Users_Meetings.AddAsync(users_Meeting);
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpGet("attendents/{meetingId}")]
+        public async Task<ActionResult<IEnumerable<GetMeetingAttendentsDto>>> GetAttendents(int meetingId)
+        {
+            // check meeting existance
+            var meeting = await _context.Meetings.FindAsync(meetingId);
+            if (meeting == null)
+                return NotFound($"Meeting with Id {meetingId} not found.");
+            var attendents = await _context.Users_Meetings
+                .Where(um => um.MeetingId == meetingId)
+                .Include(um => um.User)
+                .Select(um => new GetMeetingAttendentsDto
+                {
+                    UserId = um.UserId,
+                    UserName = um.User.FName + " " + um.User.LName,
+                    IsAttend = um.IsAttend,
+                    Score = um.Score
+                })
+                .ToListAsync();
+            return Ok(attendents);
+        }
     }
 }

@@ -290,6 +290,12 @@ namespace IEEE.Migrations
                     b.Property<int>("MeetingId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsAttend")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId", "MeetingId");
 
                     b.HasIndex("MeetingId");
