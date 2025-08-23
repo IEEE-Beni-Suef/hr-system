@@ -61,6 +61,30 @@ namespace IEEE.Data
 
 
 
+            // Configure Category-Article relationship
+            modelBuilder.Entity<Article>()
+                .HasOne(a => a.Category)
+                .WithMany(c => c.Articles)
+                .HasForeignKey(a => a.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure Article-Subsection relationship
+            modelBuilder.Entity<Subsection>()
+                .HasOne(s => s.Article)
+                .WithMany(a => a.Subsections)
+                .HasForeignKey(s => s.ArticleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Optional: Add indexes for better performance
+            modelBuilder.Entity<Article>()
+                .HasIndex(a => a.CategoryId);
+
+            modelBuilder.Entity<Subsection>()
+                .HasIndex(s => s.ArticleId);
+
+
+
+
         }
 
         // public DbSet<User> Users { get; set; }
@@ -69,5 +93,8 @@ namespace IEEE.Data
         public DbSet<Users_Meetings> Users_Meetings { get; set; }
         public DbSet<Committee> Committees { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Subsection> Subsections { get; set; }
     }
 }

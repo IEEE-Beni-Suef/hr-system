@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+<<<<<<< HEAD
+    <ActiveDebugProfile>http</ActiveDebugProfile>
+=======
+    <ActiveDebugProfile>https</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>E:\projects\Backend\websiteieee\hr-system\Properties\PublishProfiles\site24164-WebDeploy.pubxml</NameOfLastUsedPublishProfile>
-    <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
-    <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
+>>>>>>> 2c76477b949344390b5b016c8a92779fff5f1bec
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
