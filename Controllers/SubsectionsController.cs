@@ -65,30 +65,46 @@ namespace IEEE.Controllers
 
         // POST: api/Subsections
         [HttpPost]
-        public async Task<IActionResult> CreateSubsection(CreateSubsectionDto createSubsectionDto)
+        public async Task<IActionResult> CreateSubsection([FromForm] CreateSubsectionDto createSubsectionDto)
         {
-            // Check if article exists
             var articleExists = await _context.Articles.AnyAsync(a => a.Id == createSubsectionDto.ArticleId);
             if (!articleExists)
             {
                 return BadRequest("Article does not exist");
             }
 
+            string photoPath = null;
+            if (createSubsectionDto.Photo != null && createSubsectionDto.Photo.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/subsections");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(createSubsectionDto.Photo.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await createSubsectionDto.Photo.CopyToAsync(stream);
+                }
+
+                photoPath = "/uploads/subsections/" + fileName;
+            }
+
             var subsection = new Subsection
             {
                 Subtitle = createSubsectionDto.Subtitle,
                 Paragraph = createSubsectionDto.Paragraph,
-                Photo = createSubsectionDto.Photo,
+                Photo = photoPath,
                 ArticleId = createSubsectionDto.ArticleId
             };
 
             _context.Subsections.Add(subsection);
             await _context.SaveChangesAsync();
 
-            // Load the article title for response
-            await _context.Entry(subsection)
-                .Reference(s => s.Article)
-                .LoadAsync();
+            await _context.Entry(subsection).Reference(s => s.Article).LoadAsync();
 
             var subsectionDto = new GetSubsection
             {
@@ -96,15 +112,16 @@ namespace IEEE.Controllers
                 Subtitle = subsection.Subtitle,
                 Paragraph = subsection.Paragraph,
                 Photo = subsection.Photo,
-                ArticleId = subsection.ArticleId,
+                ArticleId = subsection.ArticleId
             };
 
             return CreatedAtAction(nameof(GetSubsection), new { id = subsection.Id }, subsectionDto);
         }
 
+
         // PUT: api/Subsections/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSubsection(int id, CreateSubsectionDto updateSubsectionDto)
+        public async Task<IActionResult> UpdateSubsection(int id, [FromForm] CreateSubsectionDto updateSubsectionDto)
         {
             var subsection = await _context.Subsections.FindAsync(id);
             if (subsection == null)
@@ -112,7 +129,6 @@ namespace IEEE.Controllers
                 return NotFound();
             }
 
-            // Check if article exists
             var articleExists = await _context.Articles.AnyAsync(a => a.Id == updateSubsectionDto.ArticleId);
             if (!articleExists)
             {
@@ -121,24 +137,32 @@ namespace IEEE.Controllers
 
             subsection.Subtitle = updateSubsectionDto.Subtitle;
             subsection.Paragraph = updateSubsectionDto.Paragraph;
-            subsection.Photo = updateSubsectionDto.Photo;
             subsection.ArticleId = updateSubsectionDto.ArticleId;
 
-            try
+            if (updateSubsectionDto.Photo != null && updateSubsectionDto.Photo.Length > 0)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SubsectionExists(id))
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/subsections");
+                if (!Directory.Exists(uploadsFolder))
                 {
-                    return NotFound();
+                    Directory.CreateDirectory(uploadsFolder);
                 }
-                throw;
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(updateSubsectionDto.Photo.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await updateSubsectionDto.Photo.CopyToAsync(stream);
+                }
+
+                subsection.Photo = "/uploads/subsections/" + fileName;
             }
+
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
 
         // DELETE: api/Subsections/5
         [HttpDelete("{id}")]

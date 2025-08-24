@@ -59,7 +59,7 @@ namespace IEEE.Controllers
 
         // GET: api/Categories/5/articles
         [HttpGet("{id}/articles")]
-        public async Task<ActionResult<IEnumerable<CreateArticleDto>>> GetCategoryArticles(int id)
+        public async Task<ActionResult<IEnumerable<GetArticle>>> GetCategoryArticles(int id)
         {
             var categoryExists = await _context.Categories.AnyAsync(c => c.Id == id);
             if (!categoryExists)
@@ -71,8 +71,9 @@ namespace IEEE.Controllers
                 .Include(a => a.Category)
                 .Include(a => a.Subsections)
                 .Where(a => a.CategoryId == id)
-                .Select(a => new CreateArticleDto
+                .Select(a => new GetArticle
                 {
+                    Id = a.Id , 
                     Title = a.Title,
                     Description = a.Description,
                     Keywords = a.Keywords,

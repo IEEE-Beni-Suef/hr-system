@@ -15,8 +15,8 @@ namespace IEEE.DTO.ArticleDto
         [StringLength(500)]
         public string Keywords { get; set; }
 
-        [StringLength(300)]
-        public string ? Photo { get; set; }
+        public IFormFile ? Photo { get; set; } 
+
 
         [Required]
         public int CategoryId { get; set; }

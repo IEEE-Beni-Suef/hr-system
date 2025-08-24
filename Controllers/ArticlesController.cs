@@ -109,7 +109,7 @@ namespace IEEE.Controllers
 
         // POST: api/Articles
         [HttpPost]
-        public async Task<ActionResult<CreateArticleDto>> CreateArticle(CreateArticleDto createArticleDto)
+        public async Task<ActionResult<GetArticle>> CreateArticle([FromForm] CreateArticleDto createArticleDto)
         {
             // Check if category exists
             var categoryExists = await _context.Categories.AnyAsync(c => c.Id == createArticleDto.CategoryId);
@@ -118,22 +118,39 @@ namespace IEEE.Controllers
                 return BadRequest("Category does not exist");
             }
 
-            var article = new Article 
+            string photoPath = null;
+            if (createArticleDto.Photo != null && createArticleDto.Photo.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(createArticleDto.Photo.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await createArticleDto.Photo.CopyToAsync(stream);
+                }
+
+                photoPath = "/uploads/" + fileName; // هترجعه للرسبونس
+            }
+
+            var article = new Article
             {
                 Title = createArticleDto.Title,
                 Description = createArticleDto.Description,
                 Keywords = createArticleDto.Keywords,
-                Photo = createArticleDto.Photo,
+                Photo = photoPath,
                 CategoryId = createArticleDto.CategoryId
             };
 
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 
-            // Load the category name for response
-            await _context.Entry(article)
-                .Reference(a => a.Category)
-                .LoadAsync();
+            await _context.Entry(article).Reference(a => a.Category).LoadAsync();
 
             var articleDto = new GetArticle
             {
@@ -149,9 +166,10 @@ namespace IEEE.Controllers
             return CreatedAtAction(nameof(GetArticle), new { id = article.Id }, articleDto);
         }
 
+
         // PUT: api/Articles/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateArticle(int id, CreateArticleDto updateArticleDto)
+        public async Task<IActionResult> UpdateArticle(int id, [FromForm] CreateArticleDto updateArticleDto)
         {
             var article = await _context.Articles.FindAsync(id);
             if (article == null)
@@ -159,7 +177,6 @@ namespace IEEE.Controllers
                 return NotFound();
             }
 
-            // Check if category exists
             var categoryExists = await _context.Categories.AnyAsync(c => c.Id == updateArticleDto.CategoryId);
             if (!categoryExists)
             {
@@ -169,21 +186,28 @@ namespace IEEE.Controllers
             article.Title = updateArticleDto.Title;
             article.Description = updateArticleDto.Description;
             article.Keywords = updateArticleDto.Keywords;
-            article.Photo = updateArticleDto.Photo;
             article.CategoryId = updateArticleDto.CategoryId;
 
-            try
+            if (updateArticleDto.Photo != null && updateArticleDto.Photo.Length > 0)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ArticleExists(id))
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                if (!Directory.Exists(uploadsFolder))
                 {
-                    return NotFound();
+                    Directory.CreateDirectory(uploadsFolder);
                 }
-                throw;
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(updateArticleDto.Photo.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await updateArticleDto.Photo.CopyToAsync(stream);
+                }
+
+                article.Photo = "/uploads/" + fileName;
             }
+
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }

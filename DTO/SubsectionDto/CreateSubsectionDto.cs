@@ -11,8 +11,7 @@ namespace IEEE.DTO.SubsectionDto
         [Required]
         public string Paragraph { get; set; }
 
-        [StringLength(300)]
-        public string ? Photo { get; set; }
+        public IFormFile? Photo { get; set; }
 
         [Required]
         public int ArticleId { get; set; }

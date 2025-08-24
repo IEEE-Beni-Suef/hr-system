@@ -4,5 +4,6 @@
     <NameOfLastUsedPublishProfile>E:\projects\Backend\websiteieee\hr-system\Properties\PublishProfiles\site24164-WebDeploy.pubxml</NameOfLastUsedPublishProfile>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
+    <ActiveDebugProfile>https</ActiveDebugProfile>
   </PropertyGroup>
 </Project>

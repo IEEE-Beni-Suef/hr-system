@@ -2,6 +2,7 @@
 using IEEE.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -67,7 +68,8 @@ builder.Services.AddCors(options =>
                   "http://localhost:3000",             // Local development
                   "http://localhost:5173",             // Vite default port
                   "http://localhost:4173"     ,
-                  "http://192.168.1.96:5173"// Vite preview port
+                  "http://192.168.1.96:5173" , // Vite preview port و 
+                  "https://localhost:7171"
               )
               .AllowAnyHeader()
               .AllowAnyMethod()
@@ -75,9 +77,24 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 104857600; // 100 MB
+});
+
+// لو محتاج تزود كمان حجم البودي كله (لما ترفع ملفات ضخمة مع داتا)
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.MaxRequestBodySize = 104857600; // 100 MB
+});
+
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+app.UseStaticFiles();
+
 
 // CORS must be used BEFORE routing and authentication
 app.UseCors("AllowFrontend");
