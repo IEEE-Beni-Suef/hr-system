@@ -51,6 +51,16 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("HighBoardOnly", policy => policy.RequireRole("High Board"));
+    options.AddPolicy("HeadOnly", policy => policy.RequireRole("Head"));
+    options.AddPolicy("ViceOnly", policy => policy.RequireRole("Vice"));
+    options.AddPolicy("HrOnly", policy => policy.RequireRole("Hr"));
+    options.AddPolicy("MemberOnly", policy => policy.RequireRole("Member"));
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

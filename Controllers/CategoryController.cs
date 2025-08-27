@@ -57,6 +57,7 @@ namespace IEEE.Controllers
             return Ok(category);
         }
 
+
         // GET: api/Categories/5/articles
         [HttpGet("{id}/articles")]
         public async Task<ActionResult<IEnumerable<GetArticle>>> GetCategoryArticles(int id)
@@ -67,23 +68,33 @@ namespace IEEE.Controllers
                 return NotFound("Category not found");
             }
 
-            var articles = await _context.Articles
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+            var articlesFromDb = await _context.Articles
                 .Include(a => a.Category)
                 .Include(a => a.Subsections)
                 .Where(a => a.CategoryId == id)
-                .Select(a => new GetArticle
-                {
-                    Id = a.Id , 
-                    Title = a.Title,
-                    Description = a.Description,
-                    Keywords = a.Keywords,
-                    Photo = a.Photo,
-                    CategoryId = a.CategoryId,
-                })
-                .ToListAsync();
+                .ToListAsync();   // ⬅ هنا جبنا البيانات الأول من DB
+
+            var articles = articlesFromDb.Select(a => new GetArticle
+            {
+                Id = a.Id,
+                Title = a.Title,
+                Description = a.Description,
+                Keywords = !string.IsNullOrEmpty(a.Keywords)
+                          ? a.Keywords.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                      .Select(k => k.Trim())
+                                      .ToArray()
+                          : Array.Empty<string>(),
+                Photo = string.IsNullOrEmpty(a.Photo) ? null : baseUrl + a.Photo,
+                CategoryId = a.CategoryId,
+                CategoryName = a.Category.Name
+            });
 
             return Ok(articles);
         }
+
+
 
         // POST: api/Categories
         [HttpPost]

@@ -53,9 +53,9 @@ namespace IEEE.Controllers
                     Id = user.Id,
                     Email = user.Email,
                     UserName = user.Email,
-                    FName = user.FName,
-                    MName = user.MName,
-                    LName = user.LName,
+                    FirstName = user.FName,
+                    MiddleName = user.MName,
+                    LastName = user.LName,
                     Sex = user.Sex,
                     PhoneNumber = user.PhoneNumber,
                     Goverment = user.Goverment,
@@ -90,9 +90,9 @@ namespace IEEE.Controllers
                 Id = user.Id,
                 Email = user.Email,
                 UserName = user.Email,
-                FName = user.FName,
-                MName = user.MName,
-                LName = user.LName,
+                FirstName = user.FName,
+                MiddleName = user.MName,
+                LastName = user.LName,
                 Faculty = user.Faculty,
                 Year = user.Year,
                 Sex = user.Sex,
@@ -230,27 +230,22 @@ namespace IEEE.Controllers
                     .Include(u => u.Committees)
                     .FirstOrDefaultAsync(u => u.Id == user.Id);
 
-                var response = new
+                var response = new EditUserDto
                 {
-                    updatedUser.Id,
-                    updatedUser.FName,
-                    updatedUser.MName,
-                    updatedUser.LName,
-                    updatedUser.UserName,
-                    updatedUser.Email,
-                    updatedUser.Sex,
-                    updatedUser.PhoneNumber,
-                    updatedUser.Goverment,
-                    updatedUser.Year,
-                    updatedUser.Faculty,
+                    FirstName = updatedUser.FName,
+                    MiddleName = updatedUser.MName,
+                    LastName = updatedUser.LName,
+                    Email = updatedUser.Email,
+                    Faculty = updatedUser.Faculty,
                     RoleId = updatedUser.RoleId,
-                    Committees = updatedUser.Committees.Select(c => new
-                    {
-                        c.Id,
-                        c.Name
-                    }).ToList()
+                    Year = updatedUser.Year,
+                    Goverment = updatedUser.Goverment,
+                    Phone = updatedUser.PhoneNumber,
+                    Sex = updatedUser.Sex,
+                    CommitteeIds = updatedUser.Committees
+           .Select(c => c.Id)
+           .ToList()
                 };
-
                 return Ok(response);
             }
 

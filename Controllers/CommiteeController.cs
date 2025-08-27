@@ -10,9 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace IEEE.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-   //[Authorize(Roles = "High Board,HR")]
+    //[Authorize(Roles = "Head")]
 
     public class CommitteesController : ControllerBase
     {
