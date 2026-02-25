@@ -2,6 +2,7 @@ using IEEE.Data;
 using IEEE.Entities;
 using IEEE.JsonConverters;
 using IEEE.Middleware;
+using IEEE.Services.Email;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
@@ -9,8 +10,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using IEEE.Services.EmailSettings;
+using IEEE.Services.Auth;
+using IEEE.Services.Emails;
+using IEEE.Services.Email;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+builder.Services.AddScoped<IAuthServices, AuthServices>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Bind EmailSettings from configuration
+builder.Services.Configure<IEEE.Services.EmailSettings.EmailSettings>(builder.Configuration.GetSection("EmailConfiguration"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -102,6 +116,13 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 1;   // Minimum length
     options.Password.RequiredUniqueChars = 0;
+// Password settings.
+options.Password.RequireDigit = false;
+options.Password.RequireLowercase = false;
+options.Password.RequireNonAlphanumeric = false;
+options.Password.RequireUppercase = false;
+options.Password.RequiredLength = 1;   // Minimum length
+options.Password.RequiredUniqueChars = 0;
 });
 
 

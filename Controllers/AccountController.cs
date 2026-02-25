@@ -1,10 +1,6 @@
 ﻿using IEEE.Data;
 using IEEE.DTO.UserDTO;
 using IEEE.Entities;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -138,33 +134,40 @@ namespace IEEE.Controllers
         private string GenerateJwtToken(User user, IList<string> userRoles)
         {
             List<Claim> UserClaim = new List<Claim>
-    {
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-        new Claim(ClaimTypes.Name, user.Email),
-        new Claim("IsActive", user.IsActive.ToString()),
-        new Claim("RoleId", user.RoleId.ToString())
-    };
+        {
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim("IsActive", user.IsActive.ToString()),
+            new Claim("RoleId", user.RoleId.ToString())
+        };
 
             foreach (var roleName in userRoles)
             {
                 UserClaim.Add(new Claim(ClaimTypes.Role, roleName));
             }
 
+            // Use configured signing key and expiration
+            var signingKey = config["Jwt:SecritKey"] ?? "KiraSuperUltraMegaSecretKey!1234567890";
+            var expirationMinutes = 180;
+            if (int.TryParse(config["Jwt:AccessTokenExpirationMinutes"], out var parsedMinutes))
+            {
+                expirationMinutes = parsedMinutes;
+            }
+
             var token = new JwtSecurityToken(
                 issuer: config["Jwt:IssuerIP"],
                 audience: config["Jwt:AudienceIP"],
-                expires: DateTime.UtcNow.AddMinutes(180),
+                expires: DateTime.UtcNow.AddMinutes(expirationMinutes),
                 claims: UserClaim,
                 signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KiraSuperUltraMegaSecretKey!1234567890")),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
                     SecurityAlgorithms.HmacSha256
                 )
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
 
 
 
@@ -223,7 +226,10 @@ namespace IEEE.Controllers
                 Token = Convert.ToBase64String(randomBytes),
                 Expires = DateTime.UtcNow.AddDays(7), // مدة صلاحية الـ Refresh Token
                 Created = DateTime.UtcNow,
-                CreatedByIp = ipAddress
+                CreatedByIp = ipAddress ?? "unknown",
+                // ensure DB non-nullable columns receive a non-null value
+                RevokedByIp = string.Empty,
+                ReplacedByToken = string.Empty
             };
         }
 
@@ -250,7 +256,7 @@ namespace IEEE.Controllers
 
             // إلغاء القديم وربطه بالجديد
             oldToken.Revoked = DateTime.UtcNow;
-            oldToken.RevokedByIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+            oldToken.RevokedByIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty;
             oldToken.ReplacedByToken = newRefreshToken.Token;
 
             user.RefreshTokens.Add(newRefreshToken);
@@ -264,5 +270,3 @@ namespace IEEE.Controllers
         }
     }
 }
-    
-            
