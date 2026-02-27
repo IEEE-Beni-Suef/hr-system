@@ -7,7 +7,7 @@ namespace IEEE.Entities
     {
 
         [Key]
-        public int  Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -16,14 +16,14 @@ namespace IEEE.Entities
         [Required]
         public string Paragraph { get; set; }
 
-        
-        public string ? Photo { get; set; }
+
+        public string? Photo { get; set; }
 
         [Required]
         public int ArticleId { get; set; }
 
         [ForeignKey("ArticleId")]
-        public  Article Article { get; set; }
+        public Article Article { get; set; }
 
 
 
