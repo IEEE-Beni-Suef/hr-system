@@ -1,0 +1,206 @@
+{
+  "info": {
+    "_postman_id": "ab1e23a6-2b22-4f65-9560-0addada4e4e1",
+    "name": "Articles",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38585761",
+    "_collection_link": "https://go.postman.co/collection/38585761-ab1e23a6-2b22-4f65-9560-0addada4e4e1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "title new33",
+              "type": "text",
+              "uuid": "4d3a8b8e-2fc0-4543-805e-c7568ffb9761"
+            },
+            {
+              "key": "description",
+              "value": "description new ",
+              "type": "text",
+              "uuid": "26ee8c02-34ae-4329-bd82-a8c365c46850"
+            },
+            {
+              "key": "keywords",
+              "value": "test1, tese2, test3",
+              "type": "text",
+              "uuid": "931c0615-a1ff-45f7-a674-0ba434e76a0b"
+            },
+            {
+              "key": "photo",
+              "type": "file",
+              "uuid": "e4f59be2-b4d1-405d-a2bf-0820e991949e",
+              "src": "postman-cloud:///1f080e87-f1fe-44d0-a505-8997bb4c8b28"
+            },
+            {
+              "key": "categoryId",
+              "value": "2",
+              "type": "text",
+              "uuid": "bff0533d-c6ee-47ea-a2cc-ae1f61491810"
+            },
+            {
+              "key": "Video",
+              "type": "file",
+              "uuid": "6cd30018-2c19-49df-b920-49204289d852",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Articles",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Articles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "test after update",
+              "type": "text",
+              "uuid": "8ea40877-b019-4251-af27-d35dfad35e07"
+            },
+            {
+              "key": "description",
+              "value": "after updated",
+              "type": "text",
+              "uuid": "c9998dc9-b140-4531-a357-c29542759671"
+            },
+            {
+              "key": "keywords",
+              "value": "up , date, od",
+              "type": "text",
+              "uuid": "08d3e3c0-bd94-49b0-b00c-bffef4547a5b"
+            },
+            {
+              "key": "photo",
+              "type": "file",
+              "uuid": "49364c92-ec16-499e-9992-4eea3f0a2f9c",
+              "src": "postman-cloud:///1f080e86-fc25-44a0-bf0b-92bfd66fc5f6"
+            },
+            {
+              "key": "categoryId",
+              "value": "2",
+              "type": "text",
+              "uuid": "03f3e729-75d2-4fc8-8c80-81679c3f4d05"
+            },
+            {
+              "key": "Video",
+              "value": "",
+              "type": "text",
+              "uuid": "6d88d08e-7438-4843-b3a2-aa02f3829eec"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Articles/6",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Articles",
+            "6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetAll",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Articles",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Articles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetbyID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Articles/5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Articles",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Show With Subsection",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Articles/5/show",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Articles",
+            "5",
+            "show"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Articles/24",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Articles",
+            "24"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

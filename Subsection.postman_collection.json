@@ -1,0 +1,162 @@
+{
+  "info": {
+    "_postman_id": "a72a2a42-ea8b-4463-8eac-5c420c253cd4",
+    "name": "Subsection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38585761",
+    "_collection_link": "https://go.postman.co/collection/38585761-a72a2a42-ea8b-4463-8eac-5c420c253cd4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "subtitle",
+              "value": "tesycreate",
+              "type": "text",
+              "uuid": "30794a6d-411e-41c8-a7ad-54f0ed7c82c2"
+            },
+            {
+              "key": "paragraph",
+              "value": "tesssssssssyb",
+              "type": "text",
+              "uuid": "7b583478-27a5-46d1-94b4-1fb16b8e430a"
+            },
+            {
+              "key": "photo",
+              "type": "file",
+              "uuid": "d5bb5ad9-d266-47b6-953b-b94da4fcdeb0",
+              "src": "postman-cloud:///1f080e86-fc25-44a0-bf0b-92bfd66fc5f6"
+            },
+            {
+              "key": "articleId",
+              "value": "2",
+              "type": "text",
+              "uuid": "6d897ac6-fd51-4f3e-aa0d-b73e609356b5"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Subsections",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Subsections"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "subtitle",
+              "value": "afterupdate",
+              "type": "text",
+              "uuid": "1a8ac5ad-db63-4f78-b468-08a6b8c3fc7d"
+            },
+            {
+              "key": "paragraph",
+              "value": "fsfsf",
+              "type": "text",
+              "uuid": "33ef5984-b210-4441-84ce-527577b20f49"
+            },
+            {
+              "key": "photo",
+              "type": "file",
+              "uuid": "189bd0e9-226f-415b-b189-a53288c4f2bf",
+              "src": "postman-cloud:///1f080e87-f1fe-44d0-a505-8997bb4c8b28"
+            },
+            {
+              "key": "articleId",
+              "value": "2",
+              "type": "text",
+              "uuid": "c9002e4e-50a6-42fe-940c-7775bd32d8ab"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Subsections/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Subsections",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetAll",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Subsections",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Subsections"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_By_ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Subsections/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Subsections",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Subsections/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Subsections",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

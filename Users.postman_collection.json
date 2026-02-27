@@ -1,0 +1,328 @@
+{
+  "info": {
+    "_postman_id": "9f98f4fc-36d2-4428-b96a-06532fd083cb",
+    "name": "Users",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38585761",
+    "_collection_link": "https://go.postman.co/collection/38585761-9f98f4fc-36d2-4428-b96a-06532fd083cb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "all",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3YTVkZTM3YS0wN2ZmLTQ2NjItYmFiNi1hNWM2NjFiNjI3MTUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYwIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFobWVkYWxiYW5uYTc2M0BnbWFpbC5jb20iLCJJc0FjdGl2ZSI6IlRydWUiLCJSb2xlSWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiSGlnaCBCb2FyZCIsImV4cCI6MTc1OTA5OTc2MCwiaXNzIjoiaHR0cHM6Ly9pZWVlLnJ1bmFzcC5uZXQiLCJhdWQiOiJodHRwczovL2llZWUtbWFuZ21lbnQudmVyY2VsLmFwcCJ9.eixjdnI5MwUjZDyZGt2HKA_jyH3vw9ZBaJzMMCLMcEE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"testcreate\",\r\n  \"middleName\": \"sfssfsfsf\",\r\n  \"lastName\": \"ssfsfsfsf\",\r\n  \"password\": \"Qer78*\",\r\n  \"email\": \"create@gmail.com\",\r\n  \"committeeIds\": [\r\n    19\r\n  ],\r\n  \"year\": \"First\",\r\n  \"sex\": \"Male\",\r\n  \"faculty\": \"Commerce\",\r\n  \"phone\": \"01212345456\",\r\n  \"goverment\": \"Cairo\",\r\n  \"roleId\": 3,\r\n  \"isActive\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "edit",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fName\": \"string\",\r\n  \"mName\": \"string\",\r\n  \"lName\": \"string\",\r\n  \"email\": \"string@gmail.com\",\r\n  \"faculty\": \"Commerce\",\r\n  \"year\": \"First\",\r\n  \"goverment\": \"Cairo\",\r\n  \"phoneNumber\": \"string\",\r\n  \"sex\": \"Male\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "SetUserActivation",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Admin/SetUserActivation/2?isActive=False",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Admin",
+            "SetUserActivation",
+            "2"
+          ],
+          "query": [
+            {
+              "key": "isActive",
+              "value": "False"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ActivateUser",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Admin/ActivateUser/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Admin",
+            "ActivateUser",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"s\",\r\n  \"middleName\": \"s\",\r\n  \"lastName\": \"s\",\r\n  \"password\": \"Qer78*$&f:\",\r\n  \"email\": \"seta55566@gmail.com\",\r\n  \"committeeIds\": [\r\n    49\r\n  ],\r\n  \"year\": \"First\",\r\n  \"sex\": \"Male\",\r\n  \"faculty\": \"Commerce\",\r\n  \"phone\": \"01237878777\",\r\n  \"goverment\": \"Cairo\",\r\n  \"roleId\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Account/Register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "Register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"comtest223@gmail.com\",\r\n  \"password\": \"qwqwqwwqw\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Account/Login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "Login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "show",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Users/28",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Users",
+            "28"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Roles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Users/roles",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Users",
+            "roles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RefreshToken",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\"Qa9XAR+hCROs2U/qgvvyYc2W7/mM2cwauJnBwTMd2KLdpl4hWR1rUmbmGeL6QZZJkuFGmy+TdmbNd8dTblECBg==\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://ieee.runasp.net/api/Account/refresh",
+          "protocol": "https",
+          "host": [
+            "ieee",
+            "runasp",
+            "net"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "refresh"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "value": "",
+      "disabled": true
+    }
+  ]
+}

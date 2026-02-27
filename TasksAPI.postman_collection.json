@@ -1,0 +1,162 @@
+{
+  "info": {
+    "_postman_id": "5174e3c5-eda8-4c78-90e0-411031ef58bb",
+    "name": "TasksAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38585761",
+    "_collection_link": "https://go.postman.co/collection/38585761-5174e3c5-eda8-4c78-90e0-411031ef58bb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create_Task",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"description\": \"SchemaDB\",\r\n  \"month\": \"2025-07-31\",\r\n  \"headId\": 10,\r\n  \"committeeId\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/Tasks",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "Tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_Tasks_Evaluation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/Tasks/3/evaluations",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "Tasks",
+            "3",
+            "evaluations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Set_Task_Evaluation",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n  {\r\n    \"attendentId\": 6,\r\n    \"score\": 15\r\n  }\r\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/Tasks/3/evaluations",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "Tasks",
+            "3",
+            "evaluations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete_Task",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/Tasks/Id?Id=6",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "Tasks",
+            "Id"
+          ],
+          "query": [
+            {
+              "key": "Id",
+              "value": "6"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_Task_ByID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/Tasks/Id?Id=3",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "Tasks",
+            "Id"
+          ],
+          "query": [
+            {
+              "key": "Id",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_All_Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/Tasks",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "Tasks"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "http://ieee.runasp.net",
+      "type": "default"
+    }
+  ]
+}

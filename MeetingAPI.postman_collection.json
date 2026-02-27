@@ -1,0 +1,186 @@
+{
+  "info": {
+    "_postman_id": "4a0c4e62-e5a2-4d14-9252-6588fc9d7002",
+    "name": "MeetingAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38585761",
+    "_collection_link": "https://go.postman.co/collection/38585761-4a0c4e62-e5a2-4d14-9252-6588fc9d7002?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create_Meeting",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"{{$randomFirstName}}\",\r\n  \"type\": \"commitee\",\r\n  \"description\": \"{{$randomLoremParagraph}}\",\r\n  \"recap\": \"{{$randomLoremParagraph}}\",\r\n  \"committeeId\": 19,\r\n  \"headId\": 12,\r\n  \"users\": [\r\n     {\r\n    \"userId\": 1,\r\n    \"attended\": true,\r\n    \"mark\": 4\r\n  },\r\n  {\r\n    \"userId\": 2,\r\n    \"attended\": false,\r\n    \"mark\": 4\r\n  }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Meetings",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Meetings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_All_Meetings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://ieee.runasp.net/api/Meetings",
+          "protocol": "http",
+          "host": [
+            "ieee",
+            "runasp",
+            "net"
+          ],
+          "path": [
+            "api",
+            "Meetings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_Meeting_ById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Meetings/5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Meetings",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit_meeting_ById",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"ssss\",\r\n  \"description\": \"string\",\r\n  \"recap\": \"string\",\r\n  \"committeeId\": 5,\r\n  \"headId\": 12,\r\n  \"users\": [\r\n     {\r\n    \"userId\": 1,\r\n    \"attended\": true,\r\n    \"mark\": 4\r\n  },\r\n  {\r\n    \"userId\": 2,\r\n    \"attended\": false,\r\n    \"mark\": 4\r\n  }\r\n  ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://ieee.runasp.net/api/Meetings/2",
+          "protocol": "http",
+          "host": [
+            "ieee",
+            "runasp",
+            "net"
+          ],
+          "path": [
+            "api",
+            "Meetings",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete_meeting_ById",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://ieee.runasp.net/api/Meetings/9",
+          "protocol": "http",
+          "host": [
+            "ieee",
+            "runasp",
+            "net"
+          ],
+          "path": [
+            "api",
+            "Meetings",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get_Attendees",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Meetings/attendents/{{meetingId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Meetings",
+            "attendents",
+            "{{meetingId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Attenence",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"usersAttendents\":[\r\n        {\r\n            \"userId\":0,\r\n            \"isAttend\":true,\r\n            \"score\":0\r\n        },{\r\n            \"userId\":0,\r\n            \"isAttend\":true,\r\n            \"score\":0\r\n        }\r\n    ],\r\n    \"meetingId\":5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Meetings/attendent",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Meetings",
+            "attendent"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "{{baseUrl}}",
+      "value": "http://ieee.runasp.net",
+      "type": "default"
+    }
+  ]
+}
