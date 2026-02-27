@@ -136,5 +136,14 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
+
+    await IdentitySeeder.SeedAsync(userManager, roleManager);
+}
 
 app.Run();
