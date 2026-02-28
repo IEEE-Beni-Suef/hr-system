@@ -1,6 +1,7 @@
 using IEEE.Data;
 using IEEE.DTO.EventsDTO;
 using IEEE.Entities;
+using IEEE.Extenstions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ namespace IEEE.Controllers
 {
     [ApiController]
     [Route("api/Events")]
-    [Authorize(Roles = "High Board,Head,Vice,HR")]
+    [Authorize(Roles = "High Board")]
     public class EventsController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
@@ -54,45 +55,68 @@ namespace IEEE.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<EventResponse>>> GetAll()
+        public async Task<ActionResult<PageRespone<EventResponse>>> GetAll([FromQuery] PaginationParams @params)
         {
-            var events = await _dbContext.Events
-                .Include(e => e.Category) 
-                .AsNoTracking()
+            var query = GetBaseQuery();
+            var totalRecords = await query.CountAsync();
+
+            var events = await query
+                .OrderByDescending(e => e.CreatedAt)
+                .ApplyPagination(@params.PageNumber, @params.PageSize)
                 .ToListAsync();
 
-            var responseList = events.Select(e => MapToResponse(e, e.Category.Name));
-            return Ok(responseList);
+            return Ok(new PageRespone<EventResponse>(MapToResponseList(events), @params.PageNumber, @params.PageSize, totalRecords));
         }
 
         [HttpGet("upcoming")]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<EventResponse>>> GetUpcoming()
+        public async Task<ActionResult<PageRespone<EventResponse>>> GetUpcoming([FromQuery] PaginationParams @params)
         {
             var now = DateTime.UtcNow;
-            var events = await _dbContext.Events
-                .Include(e => e.Category)
-                .AsNoTracking()
-                .Where(e => e.IsCommingSoon || (e.StartDate.HasValue && e.StartDate.Value > now))
+            var query = GetBaseQuery()
+                .Where(e => e.IsCommingSoon || (e.StartDate.HasValue && e.StartDate.Value > now));
+
+            var totalRecords = await query.CountAsync();
+            var events = await query
+                .OrderBy(e => e.StartDate)
+                .ApplyPagination(@params.PageNumber, @params.PageSize)
                 .ToListAsync();
 
-            var responseList = events.Select(e => MapToResponse(e, e.Category.Name));
-            return Ok(responseList);
+            return Ok(new PageRespone<EventResponse>(MapToResponseList(events), @params.PageNumber, @params.PageSize, totalRecords));
+        }
+
+        [HttpGet("ongoing")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PageRespone<EventResponse>>> GetOngoing([FromQuery] PaginationParams @params)
+        {
+            var now = DateTime.UtcNow;
+            var query = GetBaseQuery()
+                .Where(e => e.StartDate <= now && e.EndDate >= now);
+
+            var totalRecords = await query.CountAsync();
+            var events = await query
+                .OrderBy(e => e.EndDate) 
+                .ApplyPagination(@params.PageNumber, @params.PageSize)
+                .ToListAsync();
+
+            return Ok(new PageRespone<EventResponse>(MapToResponseList(events), @params.PageNumber, @params.PageSize, totalRecords));
         }
 
         [HttpGet("past")]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<EventResponse>>> GetPast()
+        public async Task<ActionResult<IEnumerable<EventResponse>>> GetPast([FromQuery] PaginationParams @params)
         {
             var now = DateTime.UtcNow;
-            var events = await _dbContext.Events
-                .Include(e => e.Category)
-                .AsNoTracking()
-                .Where(e => e.EndDate.HasValue && e.EndDate.Value < now)
+            var query = GetBaseQuery()
+                .Where(e => e.EndDate.HasValue && e.EndDate.Value < now);
+
+            var totalRecords = await query.CountAsync();
+            var events = await query
+                .OrderByDescending(e => e.EndDate)
+                .ApplyPagination(@params.PageNumber, @params.PageSize)
                 .ToListAsync();
 
-            var responseList = events.Select(e => MapToResponse(e, e.Category.Name));
-            return Ok(responseList);
+            return Ok(new PageRespone<EventResponse>(MapToResponseList(events), @params.PageNumber, @params.PageSize, totalRecords));
         }
 
         [HttpGet("{id}")]
@@ -168,6 +192,20 @@ namespace IEEE.Controllers
             return NoContent();
         }
 
+
+        #region Helper Methods
+        private IQueryable<Event> GetBaseQuery()
+        {
+            return _dbContext.Events
+                .Include(e => e.Category) 
+                .AsNoTracking();
+        }
+
+        private IEnumerable<EventResponse> MapToResponseList(IEnumerable<Event> events)
+        {
+            return events.Select(e => MapToResponse(e, e.Category.Name));
+        }
+
         private static EventResponse MapToResponse(Event evt, string categoryName)
         {
             return new EventResponse(
@@ -182,5 +220,8 @@ namespace IEEE.Controllers
                 evt.CreatedAt,
                 evt.LastUpdatedAt);
         }
+        #endregion
+
+
     }
 }
