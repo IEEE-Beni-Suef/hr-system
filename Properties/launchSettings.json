@@ -22,7 +22,11 @@
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
+<<<<<<< HEAD
       "launchBrowser": false,
+=======
+      "launchBrowser": true,
+>>>>>>> d73fa8a (Initial commit of forked HR system)
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7171;http://localhost:5184",
       "environmentVariables": {
