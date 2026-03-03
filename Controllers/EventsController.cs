@@ -10,7 +10,7 @@ namespace IEEE.Controllers
 {
     [ApiController]
     [Route("api/Events")]
-    [Authorize(Roles = "High Board")]
+    //[Authorize(Roles = "High Board")]
     public class EventsController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
@@ -132,48 +132,41 @@ namespace IEEE.Controllers
             return Ok(MapToResponse(evt, evt.Category.Name));
         }
 
-        [HttpPut("{id}/rename")]
-        public async Task<IActionResult> Rename(Guid id, [FromBody] RenameEventRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateEventRequest request)
         {
             var evt = await _dbContext.Events.FindAsync(id);
-            if (evt == null) return NotFound();
+            if (evt == null)
+                return NotFound();
 
-            evt.Rename(request.NewName);
-
-            await _dbContext.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpPut("{id}/keywords")]
-        public async Task<IActionResult> UpdateKeyWords(Guid id, [FromBody] UpdateEventKeyWordsRequest request)
-        {
-            var evt = await _dbContext.Events.FindAsync(id);
-            if (evt == null) return NotFound();
-
-            evt.UpdateKeyWords(request.KeyWords);
-
-            await _dbContext.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpPut("{id}/dates")]
-        public async Task<IActionResult> UpdateDates(Guid id, [FromBody] UpdateEventDatesRequest request)
-        {
-            var evt = await _dbContext.Events.FindAsync(id);
-            if (evt == null) return NotFound();
+            if (request.CategoryId.HasValue)
+            {
+                var categoryExists = await _dbContext.EventCategories.AnyAsync(c => c.Id == request.CategoryId.Value);
+                if (!categoryExists)
+                    return BadRequest(new { error = "The specified CategoryId does not exist." });
+            }
 
             var sanitizedRequest = request;
 
             if (sanitizedRequest.IsCommingSoon)
             {
-                // Normalize to null dates when the event is marked as coming soon
                 sanitizedRequest = sanitizedRequest with { StartDate = null, EndDate = null };
             }
 
-            evt.UpdateDates(
-                sanitizedRequest.StartDate,
-                sanitizedRequest.EndDate,
-                sanitizedRequest.IsCommingSoon);
+            try
+            {
+                evt.Update(
+                    sanitizedRequest.Name,
+                    sanitizedRequest.KeyWords,
+                    sanitizedRequest.StartDate,
+                    sanitizedRequest.EndDate,
+                    sanitizedRequest.IsCommingSoon,
+                    sanitizedRequest.CategoryId ?? evt.CategoryId);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
 
             await _dbContext.SaveChangesAsync();
             return NoContent();

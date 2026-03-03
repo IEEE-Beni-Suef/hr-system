@@ -101,5 +101,7 @@ namespace IEEE.Data
         public DbSet<Event> Events { get; set; }
         public DbSet<EventCategory> EventCategories { get; set; }
 
+        public DbSet<Sponsor> Sponsors { get; set; }
+
     }
 }

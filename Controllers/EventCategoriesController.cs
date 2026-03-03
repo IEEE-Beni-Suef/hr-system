@@ -9,7 +9,7 @@ namespace IEEE.Controllers
 {
     [Route("api/EventCategories")]
     [ApiController]
-    [Authorize(Roles = "High Board")]
+    //[Authorize(Roles = "High Board")]
     public class EventCategoriesController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
@@ -52,28 +52,14 @@ namespace IEEE.Controllers
             return Ok(MapToResponse(category));
         }
 
-        [HttpPut("{id}/rename")]
-        public async Task<IActionResult> Rename(Guid id, [FromBody] RenameEventCategoryRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody] UpdateEventCategoryRequest request)
         {
             var category = await _dbContext.EventCategories.FindAsync(id);
             if (category == null)
                 return NotFound();
-
-            category.Rename(request.NewName);
-
-            await _dbContext.SaveChangesAsync();
-            return NoContent(); 
-        }
-
-        [HttpPut("{id}/description")]
-        public async Task<IActionResult> UpdateDescription(Guid id, [FromBody] UpdateCategoryDescriptionRequest request)
-        {
-            var category = await _dbContext.EventCategories.FindAsync(id);
-            if (category == null)
-                return NotFound();
-
-            category.UpdateDescription(request.NewDescription);
-
+            category.Update(string.IsNullOrEmpty(request.Name) ? category.Name : request.Name, 
+                string.IsNullOrEmpty(request.Description) ? null : request.Description);
             await _dbContext.SaveChangesAsync();
             return NoContent();
         }

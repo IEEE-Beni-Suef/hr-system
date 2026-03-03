@@ -24,14 +24,11 @@
             Validate(name);
             return new EventCategory(name, description);
         }
-        public void Rename(string name)
+        
+        public void Update(string name, string? description)
         {
             Validate(name);
             Name = name.Trim();
-            LastUpdatedAt = DateTime.UtcNow;
-        }
-        public void UpdateDescription(string? description)
-        {
             Description = description?.Trim();
             LastUpdatedAt = DateTime.UtcNow;
         }
