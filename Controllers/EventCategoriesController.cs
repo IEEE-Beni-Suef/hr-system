@@ -9,7 +9,7 @@ namespace IEEE.Controllers
 {
     [Route("api/EventCategories")]
     [ApiController]
-    //[Authorize(Roles = "High Board")]
+    [Authorize(Roles = "High Board")]
     public class EventCategoriesController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
