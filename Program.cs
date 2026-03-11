@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -129,6 +131,19 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.Limits.MaxRequestBodySize = 104857600; // 100 MB
 });
 
+// 9. إعدادات الـ Rate  Limit
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("fixed", opt =>
+    {
+        opt.PermitLimit = 5; // عدد الطلبات
+        opt.Window = TimeSpan.FromSeconds(10); // المدة
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit = 2;
+    });
+});
+
+
 // --- Middleware Pipeline ---
 
 var app = builder.Build();
@@ -148,6 +163,10 @@ app.UseRouting();
 app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRateLimiter();
+app.MapControllers().RequireRateLimiting("fixed");
+
 app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
@@ -158,5 +177,6 @@ using (var scope = app.Services.CreateScope())
 
     await IdentitySeeder.SeedAsync(userManager, roleManager);
 }
+
 
 app.Run();
