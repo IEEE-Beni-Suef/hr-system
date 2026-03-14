@@ -59,7 +59,7 @@ public sealed class EmailService : IEmailService
 
             // نرسل الإيميل لأنفسنا في الـ To ونحط الأعضاء في BCC
             // عشان الأعضاء ميشوفوش إيميلات بعضهم
-            message.To.Add(new MailboxAddress(_settings.SenderName, _settings.SenderEmail));
+            message.To.Add(new MailboxAddress("IEEE Members", "noreply@ieee-branch.com"));
 
             foreach (var email in nonNullRecipientEmails)
                 message.Bcc.Add(MailboxAddress.Parse(email));
