@@ -5,10 +5,11 @@ using IEEE.Middleware;
 using IEEE.Services.Auth;
 using IEEE.Services.Email;
 using IEEE.Services.Emails;
-using IEEE.Services.EmailSettings;
+using IEEE.Services.OptionsPatterns;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -77,6 +78,17 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ActiveUserOnly", policy => policy.RequireClaim("IsActive", "True"));
 });
 
+
+// add rate limiting policy for email sending to prevent abuse
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("EmailSendingPolicy", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 5;
+    });
+});
+
 // 7. الـ CORS (تعديلات زمايلك المهمة)
 builder.Services.AddCors(options =>
 {
@@ -133,6 +145,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
