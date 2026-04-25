@@ -11,23 +11,28 @@ namespace IEEE.Configurations
         public void Configure(EntityTypeBuilder<Event> builder)
         {
             builder.HasKey(e => e.Id);
+
             builder.Property(e => e.Name)
-                .HasColumnType("NVARCHAR")
+                .HasColumnType("NVARCHAR(200)")
                 .IsRequired()
                 .HasMaxLength(200);
 
-            var keywordComparer = new ValueComparer<List<string>>(
+            // ValueComparer for IReadOnlyCollection<string>
+            var keywordComparer = new ValueComparer<IReadOnlyCollection<string>>(
                 (c1, c2) => c1!.SequenceEqual(c2!),
                 c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
-                c => c.ToList()
-                );
+                c => (IReadOnlyCollection<string>)c.ToList()
+            );
 
             builder.Property(e => e.KeyWords)
                 .HasField("_keyWords")
                 .HasConversion(
-                k => JsonSerializer.Serialize(k, (JsonSerializerOptions?)null),
-                k => JsonSerializer.Deserialize<List<string>>(k, (JsonSerializerOptions?)null) ?? new List<string>()
-                );
+                    k => JsonSerializer.Serialize(k, (JsonSerializerOptions?)null),
+                    k => (IReadOnlyCollection<string>)
+                        (JsonSerializer.Deserialize<List<string>>(k, (JsonSerializerOptions?)null)
+                         ?? new List<string>())
+                )
+                .Metadata.SetValueComparer(keywordComparer);
 
             builder.HasOne(e => e.Category)
                 .WithMany(c => c.Events)
