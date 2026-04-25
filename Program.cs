@@ -2,13 +2,13 @@ using IEEE.Data;
 using IEEE.Entities;
 using IEEE.JsonConverters;
 using IEEE.Middleware;
-using IEEE.Services.Auth;
 using IEEE.Services.Email;
 using IEEE.Services.Emails;
 using IEEE.Services.EmailSettings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -20,6 +20,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 // 2. قاعدة البيانات والـ Identity
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -29,7 +32,7 @@ builder.Services.AddIdentity<User, ApplicationRole>()
     .AddDefaultTokenProviders();
 
 // 3. إضافة خدماتك الخاصة (Email & Auth Services)
-builder.Services.AddScoped<IAuthServices, AuthServices>();
+//builder.Services.AddScoped<IAuthServices, AuthServices>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailConfiguration"));
 
@@ -77,6 +80,8 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ActiveUserOnly", policy => policy.RequireClaim("IsActive", "True"));
 });
 
+
+
 // 7. الـ CORS (تعديلات زمايلك المهمة)
 builder.Services.AddCors(options =>
 {
@@ -115,6 +120,20 @@ builder.Services.Configure<FormOptions>(options =>
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestBodySize = 104857600; // 100 MB
+});
+
+
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("EmailSendingPolicy", opt =>
+    {
+        opt.PermitLimit = 5;
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.QueueLimit = 2;
+        opt.QueueProcessingOrder =
+            System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+    });
 });
 
 // --- Middleware Pipeline ---
